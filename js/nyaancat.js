@@ -1,5 +1,5 @@
 var game = new Phaser.Game(640, 400, Phaser.AUTO, 'game');
-
+//variable for lives (will dictate tail length hehe)
 var lives = 4;
 
 var Bullet = function (game, key) {
@@ -122,6 +122,7 @@ PhaserGame.prototype = {
         this.load.image('bullet', 'assets/props/beam.png');
         this.load.spritesheet('nyantail', 'assets/cat/tail.png', 38, 28);
         this.load.spritesheet('mage', 'assets/enemies/mages.png', 19, 17);
+        this.load.spritesheet('bomb', 'assets/enemies/bombs.png', 18, 18);
 
     },
 
@@ -141,10 +142,14 @@ PhaserGame.prototype = {
                 ///TAILBOOKMARK///
         // this.tail = this.add.sprite(44, 200,'nyantail');
 
-
+        //boogies - mages
         this.mages = game.add.group();
         this.mages.enableBody = true;
         this.mage = this.add.sprite(500, 200, 'mage')
+        //boogies - bombs
+        this.bombs = game.add.group();
+        this.bombs.enableBody = true;
+        this.bomb = this.add.sprite(300, 100, 'bomb')
 
 
         this.physics.arcade.enable(this.mages);
@@ -152,8 +157,9 @@ PhaserGame.prototype = {
 
         this.player.body.collideWorldBounds = true;
 
-        this.foreground = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'foreground');
-        this.foreground.autoScroll(-60, 0);
+        // foregroundBOOKMARK
+        // this.foreground = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'foreground');
+        // this.foreground.autoScroll(-60, 0);
 
 
         //  Cursor keys to fly + space to fire
@@ -164,6 +170,10 @@ PhaserGame.prototype = {
         //animation the nyan-cat-sama
     		this.player.animations.add('any', [0, 1, 2, 3, 4], 10, true);
 
+        //animation on boogies
+    		this.mage.animations.add('mageMovement', [0, 1], 10, true);
+    		this.bomb.animations.add('bombMovement', [0, 1], 10, true);
+
         //making the tail
         ///TAILBOOKMARK///
         // this.tail.animations.add('makerainbowwiggle', [0,1], 10, true);
@@ -173,6 +183,7 @@ PhaserGame.prototype = {
 
 
     update: function () {
+
 
         this.player.body.velocity.set(0);
         if (this.cursors) {
@@ -197,6 +208,12 @@ PhaserGame.prototype = {
         if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
             this.weapons[this.currentWeapon].fire(this.player);
         }
+
+
+        //boogie animations
+        this.mage.animations.play('mageMovement')
+        this.bomb.animations.play('bombMovement')
+
 
     }
 
