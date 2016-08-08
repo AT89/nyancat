@@ -105,6 +105,8 @@ var PhaserGame = function (){
 
 PhaserGame.prototype = {
 
+
+
     init: function () {
 
         this.game.renderer.renderSession.roundPixels = true;
@@ -121,8 +123,8 @@ PhaserGame.prototype = {
         this.load.bitmapFont('shmupfont', 'assets/props/shmupfont.png', 'assets/props/shmupfont.xml');
         this.load.image('bullet', 'assets/props/beam.png');
         this.load.spritesheet('nyantail', 'assets/cat/tail.png', 38, 28);
-        this.load.spritesheet('mage', 'assets/enemies/mages.png', 19, 17);
-        this.load.spritesheet('bomb', 'assets/enemies/bombs.png', 18, 18);
+        this.load.spritesheet('mage', 'assets/bogeys/mages.png', 19, 17);
+        this.load.spritesheet('bomb', 'assets/bogeys/bombs.png', 18, 18);
 
     },
 
@@ -142,16 +144,16 @@ PhaserGame.prototype = {
                 ///TAILBOOKMARK///
         // this.tail = this.add.sprite(44, 200,'nyantail');
 
-        //boogies - mages
+        //bogeys - mages
         this.mages = game.add.group();
         this.mages.enableBody = true;
         this.mage = this.add.sprite(500, 200, 'mage')
-        //boogies - bombs
+        //bogeys - bombs
         this.bombs = game.add.group();
         this.bombs.enableBody = true;
         this.bomb = this.add.sprite(300, 100, 'bomb')
 
-
+        this.physics.arcade.enable(this.bombs);
         this.physics.arcade.enable(this.mages);
         this.physics.arcade.enable(this.player);
 
@@ -170,15 +172,17 @@ PhaserGame.prototype = {
         //animation the nyan-cat-sama
     		this.player.animations.add('any', [0, 1, 2, 3, 4], 10, true);
 
-        //animation on boogies
-    		this.mage.animations.add('mageMovement', [0, 1], 10, true);
-    		this.bomb.animations.add('bombMovement', [0, 1], 10, true);
+        //animation on bogeyss - messed up the mage sprites lol
+        this.mage.animations.add('mageMovement', [0, 1], 5, true);
+    		this.bomb.animations.add('bombMovement', [0, 1], 5, true);
 
         //making the tail
         ///TAILBOOKMARK///
         // this.tail.animations.add('makerainbowwiggle', [0,1], 10, true);
 
     },
+
+
 
 
 
@@ -210,7 +214,7 @@ PhaserGame.prototype = {
         }
 
 
-        //boogie animations
+        //bogey animations
         this.mage.animations.play('mageMovement')
         this.bomb.animations.play('bombMovement')
 
