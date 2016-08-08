@@ -108,7 +108,6 @@ PhaserGame.prototype = {
     init: function () {
 
         this.game.renderer.renderSession.roundPixels = true;
-
         this.physics.startSystem(Phaser.Physics.ARCADE);
 
     },
@@ -122,6 +121,7 @@ PhaserGame.prototype = {
         this.load.bitmapFont('shmupfont', 'assets/props/shmupfont.png', 'assets/props/shmupfont.xml');
         this.load.image('bullet', 'assets/props/beam.png');
         this.load.spritesheet('nyantail', 'assets/cat/tail.png', 38, 28);
+        this.load.spritesheet('mage', 'assets/enemies/mages.png', 19, 17);
 
     },
 
@@ -142,7 +142,12 @@ PhaserGame.prototype = {
         // this.tail = this.add.sprite(44, 200,'nyantail');
 
 
+        this.mages = game.add.group();
+        this.mages.enableBody = true;
+        this.mage = this.add.sprite(500, 200, 'mage')
 
+
+        this.physics.arcade.enable(this.mages);
         this.physics.arcade.enable(this.player);
 
         this.player.body.collideWorldBounds = true;
