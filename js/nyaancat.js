@@ -1,5 +1,7 @@
 var game = new Phaser.Game(640, 400, Phaser.AUTO, 'game');
 
+var lives = 4;
+
 var Bullet = function (game, key) {
 
     Phaser.Sprite.call(this, game, 0, 0, key);
@@ -9,7 +11,7 @@ var Bullet = function (game, key) {
     this.anchor.set(0.5);
 
     this.checkWorldBounds = true;
-    this.outOfBoundsKill = false;
+    this.outOfBoundsKill = true;
     this.exists = false;
 
     this.tracking = false;
@@ -38,13 +40,11 @@ var Bullet = function (game, key) {
 
   Bullet.prototype.update = function () {
 
-      if (this.tracking)
-      {
+      if (this.tracking)  {
           this.rotation = Math.atan2(this.body.velocity.y, this.body.velocity.x);
       }
 
-      if (this.scaleSpeed > 0)
-      {
+      if (this.scaleSpeed > 0)  {
           this.scale.x += this.scaleSpeed;
           this.scale.y += this.scaleSpeed;
       }
@@ -61,8 +61,7 @@ Weapon.Beam = function (game) {
     this.bulletSpeed = 1000;
     this.fireRate = 45;
 
-    for (var i = 0; i < 64; i++)
-    {
+    for (var i = 0; i < 64; i++){
         this.add(new Bullet(game, 'bullet'), true);
     }
 
@@ -89,7 +88,7 @@ Weapon.Beam.prototype.fire = function (source) {
 
 //  The core game loop
 
-var PhaserGame = function () {
+var PhaserGame = function (){
 
     this.background = null;
     this.foreground = null;
@@ -122,7 +121,7 @@ PhaserGame.prototype = {
         this.load.spritesheet('player', 'assets/cat/nyancat.png', 61, 28);
         this.load.bitmapFont('shmupfont', 'assets/props/shmupfont.png', 'assets/props/shmupfont.xml');
         this.load.image('bullet', 'assets/props/beam.png');
-        this.load.spritesheet('tail', 'assets/cat/tail.png', 38, 28);
+        this.load.spritesheet('nyantail', 'assets/cat/tail.png', 38, 28);
 
     },
 
@@ -138,10 +137,11 @@ PhaserGame.prototype = {
 
 
 
-
-
-
         this.player = this.add.sprite(64, 200, 'player');
+                ///TAILBOOKMARK///
+        // this.tail = this.add.sprite(44, 200,'nyantail');
+
+
 
         this.physics.arcade.enable(this.player);
 
@@ -158,7 +158,10 @@ PhaserGame.prototype = {
 
         //animation the nyan-cat-sama
     		this.player.animations.add('any', [0, 1, 2, 3, 4], 10, true);
-        this.player.animations.add('tailrainbow', [0,1], 10, true);
+
+        //making the tail
+        ///TAILBOOKMARK///
+        // this.tail.animations.add('makerainbowwiggle', [0,1], 10, true);
 
     },
 
@@ -167,29 +170,26 @@ PhaserGame.prototype = {
     update: function () {
 
         this.player.body.velocity.set(0);
-        if (this.cursors){
+        if (this.cursors) {
           this.player.animations.play('any');
+                  ///TAILBOOKMARK///
+          // this.tail.animations.play('makerainbowwiggle')
         }
-        if (this.cursors.left.isDown)
-        {
+        if (this.cursors.left.isDown) {
             this.player.body.velocity.x = -this.speed;
         }
-        else if (this.cursors.right.isDown)
-        {
+        else if (this.cursors.right.isDown) {
             this.player.body.velocity.x = this.speed;
         }
 
-        if (this.cursors.up.isDown)
-        {
+        if (this.cursors.up.isDown) {
             this.player.body.velocity.y = -this.speed;
         }
-        else if (this.cursors.down.isDown)
-        {
+        else if (this.cursors.down.isDown)  {
             this.player.body.velocity.y = this.speed;
         }
 
-        if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
-        {
+        if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
             this.weapons[this.currentWeapon].fire(this.player);
         }
 
