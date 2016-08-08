@@ -87,8 +87,8 @@ Weapon.Beam.prototype.fire = function (source) {
 
     if (this.game.time.time < this.nextFire) { return; }
 
-    var x = source.x + 40;
-    var y = source.y + 10;
+    var x = source.x + 80;
+    var y = source.y + 15;
 
     this.getFirstExists(false).fire(x, y, 0, this.bulletSpeed, 0, 0);
 
@@ -129,15 +129,9 @@ PhaserGame.prototype = {
 
         this.load.image('background', 'assets/props/bg.png');
         this.load.image('foreground', 'assets/props/fore.png');
-        this.load.image('player', 'assets/props/ship.png');
+        this.load.spritesheet('player', 'assets/cat/nyancat.png', 61, 28);
         this.load.bitmapFont('shmupfont', 'assets/props/shmupfont.png', 'assets/props/shmupfont.xml');
-
-        for (var i = 1; i <= 11; i++)
-        {
-            this.load.image('bullet', 'assets/props/beam.png');
-        }
-
-        //  Note: Graphics are not for use in any commercial project
+        this.load.image('bullet', 'assets/props/beam.png');
 
     },
 
@@ -148,14 +142,9 @@ PhaserGame.prototype = {
 
 
         this.weapons.push(new Weapon.Beam(this.game));
-
-
         this.currentWeapon = 0;
 
-        for (var i = 1; i < this.weapons.length; i++)
-        {
-            this.weapons[i].visible = false;
-        }
+
 
         this.player = this.add.sprite(64, 200, 'player');
 
@@ -172,6 +161,9 @@ PhaserGame.prototype = {
 
         this.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
 
+        //animation the nyan-cat-sama
+    		this.player.animations.add('any', [0, 1, 2, 3, 4], 10, true);
+
 
     },
 
@@ -180,7 +172,9 @@ PhaserGame.prototype = {
     update: function () {
 
         this.player.body.velocity.set(0);
-
+        if (this.cursors){
+          this.player.animations.play('any');
+        }
         if (this.cursors.left.isDown)
         {
             this.player.body.velocity.x = -this.speed;
