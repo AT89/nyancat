@@ -1,9 +1,5 @@
 var game = new Phaser.Game(640, 400, Phaser.AUTO, 'game');
 
-//  Our core Bullet class
-//  This is a simple Sprite object that we set a few properties on
-//  It is fired by all of the Weapon classes
-
 var Bullet = function (game, key) {
 
     Phaser.Sprite.call(this, game, 0, 0, key);
@@ -13,7 +9,7 @@ var Bullet = function (game, key) {
     this.anchor.set(0.5);
 
     this.checkWorldBounds = true;
-    this.outOfBoundsKill = true;
+    this.outOfBoundsKill = false;
     this.exists = false;
 
     this.tracking = false;
@@ -21,47 +17,41 @@ var Bullet = function (game, key) {
 
 };
 
-Bullet.prototype = Object.create(Phaser.Sprite.prototype);
-Bullet.prototype.constructor = Bullet;
+  Bullet.prototype = Object.create(Phaser.Sprite.prototype);
+  Bullet.prototype.constructor = Bullet;
 
-Bullet.prototype.fire = function (x, y, angle, speed, gx, gy) {
+  Bullet.prototype.fire = function (x, y, angle, speed, gx, gy) {
 
-    gx = gx || 0;
-    gy = gy || 0;
+      gx = gx || 0;
+      gy = gy || 0;
 
-    this.reset(x, y);
-    this.scale.set(1);
+      this.reset(x, y);
+      this.scale.set(1);
 
-    this.game.physics.arcade.velocityFromAngle(angle, speed, this.body.velocity);
+      this.game.physics.arcade.velocityFromAngle(angle, speed, this.body.velocity);
 
-    this.angle = angle;
+      this.angle = angle;
 
-    this.body.gravity.set(gx, gy);
+      this.body.gravity.set(gx, gy);
 
-};
+  };
 
-Bullet.prototype.update = function () {
+  Bullet.prototype.update = function () {
 
-    if (this.tracking)
-    {
-        this.rotation = Math.atan2(this.body.velocity.y, this.body.velocity.x);
-    }
+      if (this.tracking)
+      {
+          this.rotation = Math.atan2(this.body.velocity.y, this.body.velocity.x);
+      }
 
-    if (this.scaleSpeed > 0)
-    {
-        this.scale.x += this.scaleSpeed;
-        this.scale.y += this.scaleSpeed;
-    }
+      if (this.scaleSpeed > 0)
+      {
+          this.scale.x += this.scaleSpeed;
+          this.scale.y += this.scaleSpeed;
+      }
 
-};
+  };
 
 var Weapon = {};
-
-
-
-//////////////////////////////////////////////////////////////////////////
-//  Fires a streaming beam of lazers, very fast, in front of the player //
-//////////////////////////////////////////////////////////////////////////
 
 Weapon.Beam = function (game) {
 
@@ -132,6 +122,7 @@ PhaserGame.prototype = {
         this.load.spritesheet('player', 'assets/cat/nyancat.png', 61, 28);
         this.load.bitmapFont('shmupfont', 'assets/props/shmupfont.png', 'assets/props/shmupfont.xml');
         this.load.image('bullet', 'assets/props/beam.png');
+        this.load.spritesheet('tail', 'assets/cat/tail.png', 38, 28);
 
     },
 
@@ -141,8 +132,12 @@ PhaserGame.prototype = {
         this.background.autoScroll(-40, 0);
 
 
+
         this.weapons.push(new Weapon.Beam(this.game));
         this.currentWeapon = 0;
+
+
+
 
 
 
@@ -163,7 +158,7 @@ PhaserGame.prototype = {
 
         //animation the nyan-cat-sama
     		this.player.animations.add('any', [0, 1, 2, 3, 4], 10, true);
-
+        this.player.animations.add('tailrainbow', [0,1], 10, true);
 
     },
 
