@@ -11,7 +11,7 @@ var Bullet = function (game, key) {
     this.anchor.set(0.5);
 
     this.checkWorldBounds = true;
-    this.outOfBoundsKill = true;
+    this.outOfBoundsKill = true; //need to keep this in or code errors out
     this.exists = false;
 
     this.tracking = false;
