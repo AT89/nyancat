@@ -1,6 +1,8 @@
-var game = new Phaser.Game(640, 400, Phaser.AUTO, 'game');
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
 //variable for lives (will dictate tail length hehe)
 var lives = 4;
+
+
 
 var Bullet = function (game, key) {
 
@@ -106,7 +108,6 @@ var PhaserGame = function (){
 PhaserGame.prototype = {
 
 
-
     init: function () {
 
         this.game.renderer.renderSession.roundPixels = true;
@@ -127,6 +128,9 @@ PhaserGame.prototype = {
         this.load.spritesheet('bomb', 'assets/bogeys/bombs.png', 18, 18);
 
     },
+
+
+/////////////////////////////CREATE//////////////////////////////////////
 
     create: function () {
 
@@ -154,7 +158,7 @@ PhaserGame.prototype = {
         this.bomb = this.add.sprite(300, 100, 'bomb')
 
         this.physics.arcade.enable(this.bombs);
-        this.physics.arcade.enable(this.mages);
+        this.physics.arcade.enable(this.mage);
         this.physics.arcade.enable(this.player);
 
         this.player.body.collideWorldBounds = true;
@@ -180,21 +184,22 @@ PhaserGame.prototype = {
         ///TAILBOOKMARK///
         // this.tail.animations.add('makerainbowwiggle', [0,1], 10, true);
 
+
+
     },
 
 
 
-
-
+/////////////////////////////UPDATE//////////////////////////////////////
     update: function () {
 
 
         this.player.body.velocity.set(0);
-        if (this.cursors) {
-          this.player.animations.play('any');
+
+
                   ///TAILBOOKMARK///
           // this.tail.animations.play('makerainbowwiggle')
-        }
+
         if (this.cursors.left.isDown) {
             this.player.body.velocity.x = -this.speed;
         }
@@ -213,14 +218,26 @@ PhaserGame.prototype = {
             this.weapons[this.currentWeapon].fire(this.player);
         }
 
-
+        //nyan cat animation
+        this.player.animations.play('any')
         //bogey animations
         this.mage.animations.play('mageMovement')
         this.bomb.animations.play('bombMovement')
 
 
+        this.physics.arcade.overlap(
+            this.Bullets, this.mages, this.enemyHit, null, this
+          )
+
     }
+    enemyHit: function (Weapon, mages) {
+      Weapon.kill();
+      mage.kill();
+    },
 
 };
+
+
+
 
 game.state.add('Game', PhaserGame, true);
