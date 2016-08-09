@@ -10,7 +10,7 @@ PhaserGame = {
     this.load.spritesheet('nyantail', 'assets/cat/tail.png', 38, 28);
     this.load.spritesheet('magusEnemy', 'assets/bogeys/mages.png', 19, 18);
     this.load.spritesheet('bombEnemy', 'assets/bogeys/bombs.png', 18, 18);
-    this.load.spritesheet('explosion', 'assets/props/explosion.png', 95, 94)
+    this.load.spritesheet('explosion', 'assets/props/explosion.png', 94, 94)
   },
 
   ////////////////////CREATE////////////////////////
