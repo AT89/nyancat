@@ -35,9 +35,18 @@ PhaserGame = {
     // this.physics.enable(this.beam, Phaser.Physics.ARCADE);
     // this.beam.anchor.setTo(0.5,0.5)
     // this.beam.body.velocity.x = 500;
-    this.beam = [];
+    this.beamPool = this.add.group();
+    this.beamPool.enableBody = true;
+    this.beamPool.physicsBodyType = Phaser.Physics.ARCADE;
+    //limit to only 100 beams on screen at once
+    this.beamPool.createMultiple(100, 'beam');
+    this.beamPool.setAll('anchor.x', 0.5);
+    this.beamPool.setAll('anchor.y',0.5);
+    // Automatically kill the bullet sprites when they go out of bounds
+    this.beamPool.setAll('outOfBoundsKill', true);
+    this.beamPool.setAll('checkWorldBounds', true);
     this.nextFire = 0;
-    this.shotDelay = 200; //SHOOTINGRATE! use this for powerup etc
+    this.shotDelay = 300; //SHOOTINGRATE! use this for powerup etc
 
     this.cursors = this.input.keyboard.createCursorKeys(); //this is a-conveniene function built-in with phaser <3
 
@@ -55,6 +64,13 @@ PhaserGame = {
     this.bullet.body.velocity.x = -500;
 
 
+
+    this.instructions = this.add.text(400,550,
+    'Use the arrow keys to move nyan-sama\n'+
+    'and Space to pew-pew',
+    {font: '20px monospace', fill: '#fff', align: 'center'});
+    this.instructions.anchor.setTo(0.5, 0.5);
+    this.instExpire = this.time.now + 6000;
   },
 
 
@@ -64,13 +80,12 @@ PhaserGame = {
 
     //U.PHYSICS!
     this.physics.arcade.overlap(
-      this.beam, this.player, this.playerHit, null, this
+      this.bullet, this.player, this.playerHit, null, this
     );
-    for (var i = 0; i < this.beam.length; i++) {
-      this.physics.arcade.overlap(
-        this.beam[i], this.enemy, this.enemyHit, null, this
-      );
-    }
+
+    this.physics.arcade.overlap(
+      this.beamPool, this.enemy, this.enemyHit, null, this
+    )
 
     //nyan-cat pew-pew
     if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
@@ -92,7 +107,12 @@ PhaserGame = {
     } else if (this.cursors.down.isDown) {
       this.player.body.velocity.y = this.player.speed;
     }
-  },
+
+    if (this.instructions.exists && this.time.now > this.instExpire) {
+    this.instructions.destroy();
+    }
+
+},
 
 
 
@@ -120,17 +140,18 @@ PhaserGame = {
     explosion.play('boom', 15, false, true);
   },
   fire: function()  {
-    if (this.time.now < this.nextFire) {
+    if (this.time.now < this.nextFire) { //similar to set timeout, if this time now is less than the cooldown (function below), FIRE!
       return;
     }
-
+    if (this.beamPool.countDead() === 0)  {
+      return;
+    }
     this.nextFire = this.time.now + this.shotDelay;
 
-    var beam = this.add.sprite(this.player.x+70, this.player.y, 'beam');
-    beam.anchor.setTo(0.5, 0.5);
-    this.physics.enable(beam, Phaser.Physics.ARCADE);
+    var beam = this.beamPool.getFirstExists(false);
+
+    beam.reset(this.player.x+70, this.player.y);
     beam.body.velocity.x = 500;
-    this.beam.push(beam);
   }
 
 };
