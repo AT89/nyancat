@@ -30,17 +30,17 @@ PhaserGame = {
     this.player.speed = 300; //player initial speed
     this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
 
-    // var tailCount = 20;
-    // this.tailPool = this.add.group();
-    // this.tailPool.enableBody = true;
-    // this.tailPool.physicsBodyType = Phaser.Physics.ARCADE;
-    // this.tail.createMultiple(tailCount, 'nyantail');
-    // this.tailPool.setAll('anchor.x', 0.5);
-    // this.tailPool.setAll('anchor.y', 0.5);
-    // this.tailPool.setAll('outOfBoundsKill', true);
-    // this.tailPool.setAll('checkWorldBounds', true);
+//grouping is necessary to adhere to memory leaks and reuse sprites, for time & memory, as well as giving it all properties
 
-    this.tails = [];
+    this.tailPool = this.add.group();
+    this.tailPool.enableBody = true;
+    this.tailPool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.tailPool.createMultiple(100, 'nyantail');
+    this.tailPool.setAll('anchor.x', 0.5);
+    this.tailPool.setAll('anchor.y', 0.5);
+    this.tailPool.setAll('outOfBoundsKill', true);
+    this.tailPool.setAll('checkWorldBounds', true);
+
 
 
     //nyan-cat pew pew
@@ -168,12 +168,21 @@ PhaserGame = {
     beam.body.velocity.x = 500;
   },
   maketail: function() {
-    var tail = this.add.sprite(this.player.x-35, this.player.y, 'nyantail');
-    tail.anchor.setTo(0.5, 0.5);
-    this.physics.enable(tail, Phaser.Physics.ARCADE);
+    if (this.tailPool.countDead() === 0) {
+      return;
+    }
+
+    var tail = this.tailPool.getFirstExists(false);
+    tail.reset(this.player.x-35, this.player.y);
     tail.body.velocity.x = -700;
-    this.tails.push(tail);
-    tail.animations.add('makerainbowwiggle', [0,1], 30, true);
+    // var tail = this.add.sprite(this.player.x-35, this.player.y, 'nyantail');
+    // tail.anchor.setTo(0.5, 0.5);
+    // this.physics.enable(tail, Phaser.Physics.ARCADE);
+    // tail.body.velocity.x = -700;
+    // this.tails.push(tail);
+    //MEANINGLESS ANIMATION
+    // tail.animations.add('makerainbowwiggle', [0,1], 30, true);
+
    },
 
 };
