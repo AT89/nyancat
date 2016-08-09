@@ -41,13 +41,7 @@ PhaserGame = {
     this.tailPool.setAll('outOfBoundsKill', true);
     this.tailPool.setAll('checkWorldBounds', true);
 
-
-
     //nyan-cat pew pew
-    // this.beam = this.add.sprite(80, 220, 'beam');
-    // this.physics.enable(this.beam, Phaser.Physics.ARCADE);
-    // this.beam.anchor.setTo(0.5,0.5)
-    // this.beam.body.velocity.x = 500;
     this.beamPool = this.add.group();
     this.beamPool.enableBody = true;
     this.beamPool.physicsBodyType = Phaser.Physics.ARCADE;
@@ -64,20 +58,40 @@ PhaserGame = {
     this.cursors = this.input.keyboard.createCursorKeys(); //this is a-conveniene function built-in with phaser <3
 
     //create enemies
-    this.enemy = this.add.sprite(500,220, 'magusEnemy');
-    this.enemy.anchor.setTo(0.5,   0.5);
-    this.physics.enable(this.enemy, Phaser.Physics.ARCADE);
-    this.enemy.animations.add('mageMovement', [0, 1, 9], 5, true);
-    this.enemy.animations.play('mageMovement')
+    // this.enemy = this.add.sprite(500,220, 'magusEnemy');
+    // this.enemy.anchor.setTo(0.5,   0.5);
+    // this.physics.enable(this.enemy, Phaser.Physics.ARCADE);
+    // this.enemy.animations.add('mageMovement', [0, 1, 9], 5, true);
+    // this.enemy.animations.play('mageMovement')
+
+    this.enemyPool = this.add.group();
+    this.enemyPool.enableBody = true;
+    this.enemyPool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.enemyPool.createMultiple(50, 'magusEnemy');
+    this.enemyPool.setAll('anchor.x', 0.5)
+    this.enemyPool.setAll('anchor.y', 0.5)
+    this.enemyPool.setAll('outOfBoundsKill', true);
+    this.enemyPool.setAll('checkWorldBounds', true);
+
+    this.enemyPool.forEach(function (enemy){
+      enemy.animations.add('mageMovement', [0, 1, 9], 5, true);
+    });
+
+    this.nextEnemyAt = 0;
+    this.enemyDelay = 1000;
 
     //enemy bullet
-    this.bullet = this.add.sprite(470, 220,'bullet')
+    this.bullet = this.add.sprite(470, 180,'bullet')
     this.bullet.anchor.setTo(0.5,0.5)
     this.physics.enable(this.bullet, Phaser.Physics.ARCADE);
     this.bullet.body.velocity.x = -500;
 
 
 
+
+
+
+    //instructions message
     this.instructions = this.add.text(400,550,
     'Use the arrow keys to move nyan-cat\n'+
     'and Space to pew-pew',
@@ -91,13 +105,22 @@ PhaserGame = {
   ////////////////////UPDATE////////////////////////
   update: function() {
 
+    if (this.nextEnemyAt < this.time.now && this.enemyPool.countDead() > 0) {
+      this.nextEnemyAt = this.time.now + this.enemyDelay;
+      var enemy = this.enemyPool.getFirstExists(false);
+      // spawn at a random location, right of the screen
+      enemy.reset(700,this.rnd.integerInRange (0, 600));
+      // also randomize the speed
+      enemy.body.velocity.x = -this.rnd.integerInRange(30, 80);
+      enemy.play('mageMovement');
+    }
     //U.PHYSICS!
     this.physics.arcade.overlap(
       this.bullet, this.player, this.playerHit, null, this
     );
 
     this.physics.arcade.overlap(
-      this.beamPool, this.enemy, this.enemyHit, null, this
+      this.beamPool, this.enemyPool, this.enemyHit, null, this
     )
 
     //nyan-cat pew-pew
@@ -150,7 +173,7 @@ PhaserGame = {
     enemy.kill();
     var explosion = this.add.sprite(enemy.x, enemy.y, 'explosion');
     explosion.anchor.setTo(0.5, 0.5);
-    explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11], false);
+    explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
     explosion.play('boom', 15, false, true);
   },
   fire: function()  {
