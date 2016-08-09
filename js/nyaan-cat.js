@@ -35,7 +35,7 @@ PhaserGame = {
     this.tailPool = this.add.group();
     this.tailPool.enableBody = true;
     this.tailPool.physicsBodyType = Phaser.Physics.ARCADE;
-    this.tailPool.createMultiple(100, 'nyantail');
+    this.tailPool.createMultiple(50, 'nyantail');
     this.tailPool.setAll('anchor.x', 0.5);
     this.tailPool.setAll('anchor.y', 0.5);
     this.tailPool.setAll('outOfBoundsKill', true);
@@ -59,7 +59,7 @@ PhaserGame = {
     this.beamPool.setAll('outOfBoundsKill', true);
     this.beamPool.setAll('checkWorldBounds', true);
     this.nextFire = 0;
-    this.shotDelay = 300; //SHOOTINGRATE! use this for powerup etc
+    this.shotDelay = 200; //SHOOTINGRATE! use this for powerup etc
 
     this.cursors = this.input.keyboard.createCursorKeys(); //this is a-conveniene function built-in with phaser <3
 
@@ -71,7 +71,7 @@ PhaserGame = {
     this.enemy.animations.play('mageMovement')
 
     //enemy bullet
-    this.bullet = this.add.sprite(480, 220,'bullet')
+    this.bullet = this.add.sprite(470, 220,'bullet')
     this.bullet.anchor.setTo(0.5,0.5)
     this.physics.enable(this.bullet, Phaser.Physics.ARCADE);
     this.bullet.body.velocity.x = -500;
@@ -171,15 +171,10 @@ PhaserGame = {
     if (this.tailPool.countDead() === 0) {
       return;
     }
-
     var tail = this.tailPool.getFirstExists(false);
     tail.reset(this.player.x-35, this.player.y);
     tail.body.velocity.x = -700;
-    // var tail = this.add.sprite(this.player.x-35, this.player.y, 'nyantail');
-    // tail.anchor.setTo(0.5, 0.5);
-    // this.physics.enable(tail, Phaser.Physics.ARCADE);
-    // tail.body.velocity.x = -700;
-    // this.tails.push(tail);
+
     //MEANINGLESS ANIMATION
     // tail.animations.add('makerainbowwiggle', [0,1], 30, true);
 
