@@ -10,7 +10,7 @@ PhaserGame = {
     this.load.image('beam', 'assets/props/beam.png');
     this.load.image('bullet', 'assets/props/bullet.png');
     this.load.spritesheet('nyantail', 'assets/cat/tail.png', 38, 28);
-    this.load.spritesheet('magusEnemy', 'assets/bogeys/mages.png', 19, 18);
+    this.load.spritesheet('magusEnemy', 'assets/bogeys/mages.png', 19, 19);
     this.load.spritesheet('bombEnemy', 'assets/bogeys/bombs.png', 18, 18);
     this.load.spritesheet('explosion', 'assets/props/explosion.png', 94, 94)
   },
@@ -53,40 +53,56 @@ PhaserGame = {
     this.beamPool.setAll('outOfBoundsKill', true);
     this.beamPool.setAll('checkWorldBounds', true);
     this.nextFire = 0;
-    this.shotDelay = 200; //SHOOTINGRATE! use this for powerup etc
+    this.shotDelay = 40; //SHOOTINGRATE! use this for powerup etc
+
 
     this.cursors = this.input.keyboard.createCursorKeys(); //this is a-conveniene function built-in with phaser <3
-
-    //create enemies
-    // this.enemy = this.add.sprite(500,220, 'magusEnemy');
-    // this.enemy.anchor.setTo(0.5,   0.5);
-    // this.physics.enable(this.enemy, Phaser.Physics.ARCADE);
-    // this.enemy.animations.add('mageMovement', [0, 1, 9], 5, true);
-    // this.enemy.animations.play('mageMovement')
 
     this.enemyPool = this.add.group();
     this.enemyPool.enableBody = true;
     this.enemyPool.physicsBodyType = Phaser.Physics.ARCADE;
-    this.enemyPool.createMultiple(50, 'magusEnemy');
+    this.enemyPool.createMultiple(150, 'bombEnemy');
     this.enemyPool.setAll('anchor.x', 0.5)
     this.enemyPool.setAll('anchor.y', 0.5)
     this.enemyPool.setAll('outOfBoundsKill', true);
     this.enemyPool.setAll('checkWorldBounds', true);
-
     this.enemyPool.forEach(function (enemy){
-      enemy.animations.add('mageMovement', [0, 1, 9], 5, true);
+    enemy.animations.add('mageMovement', [0, 3], 5, true);
     });
-
     this.nextEnemyAt = 0;
-    this.enemyDelay = 1000;
+    this.enemyDelay = 500; //spawning time
 
+
+    // this.bullet = this.add.sprite(470, 180,'bullet')
+    // this.bullet.anchor.setTo(0.5,0.5)
+    // this.physics.enable(this.bullet, Phaser.Physics.ARCADE);
+    // this.bullet.body.velocity.x = -500;
     //enemy bullet
-    this.bullet = this.add.sprite(470, 180,'bullet')
-    this.bullet.anchor.setTo(0.5,0.5)
-    this.physics.enable(this.bullet, Phaser.Physics.ARCADE);
-    this.bullet.body.velocity.x = -500;
+    this.bulletPool = this.add.group();
+    this.bulletPool.enableBody = true;
+    this.bulletPool.physicsBodyType = Phaser.Physics.ARCADE;
+    //limit to only 100 bullets on screen at once
+    this.bulletPool.createMultiple(100, 'bullet');
+    this.bulletPool.setAll('anchor.x', 0.5);
+    this.bulletPool.setAll('anchor.y',0.5);
+    // Automatically kill the bullet sprites when they go out of bounds
+    this.bulletPool.setAll('outOfBoundsKill', true);
+    this.bulletPool.setAll('checkWorldBounds', true);
+    //need to add firing from mages..
 
 
+
+    this.beamPool.enableBody = true;
+    this.beamPool.physicsBodyType = Phaser.Physics.ARCADE;
+    //limit to only 100 beams on screen at once
+    this.beamPool.createMultiple(100, 'beam');
+    this.beamPool.setAll('anchor.x', 0.5);
+    this.beamPool.setAll('anchor.y',0.5);
+    // Automatically kill the bullet sprites when they go out of bounds
+    this.beamPool.setAll('outOfBoundsKill', true);
+    this.beamPool.setAll('checkWorldBounds', true);
+    this.nextFire = 0;
+    this.shotDelay = 40; //SHOOTINGRATE! use this for powerup et
 
 
 
@@ -111,16 +127,19 @@ PhaserGame = {
       // spawn at a random location, right of the screen
       enemy.reset(700,this.rnd.integerInRange (0, 600));
       // also randomize the speed
-      enemy.body.velocity.x = -this.rnd.integerInRange(30, 80);
+      enemy.body.velocity.x = -this.rnd.integerInRange(30, 100);
       enemy.play('mageMovement');
     }
     //U.PHYSICS!
-    this.physics.arcade.overlap(
-      this.bullet, this.player, this.playerHit, null, this
-    );
+    // this.physics.arcade.overlap(
+    //   this.bulletPool, this.player, this.playerHit, null, this
+    // );
 
     this.physics.arcade.overlap(
       this.beamPool, this.enemyPool, this.enemyHit, null, this
+    )
+    this.physics.arcade.overlap(
+      this.player, this.enemyPool, this.playerHit, null, this
     )
 
     //nyan-cat pew-pew
@@ -160,9 +179,10 @@ PhaserGame = {
     // this.game.debug.body(this.player);
   },
   //collisions!
-  playerHit: function (bullet, player) {
-    bullet.kill();
+  playerHit: function (enemy, player) {
     player.kill();
+    enemy.kill()
+
     var explosion = this.add.sprite(player.x, player.y, 'explosion');
     explosion.anchor.setTo(0.5, 0.5);
     explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
@@ -177,7 +197,7 @@ PhaserGame = {
     explosion.play('boom', 15, false, true);
   },
   fire: function()  {
-    if (this.time.now < this.nextFire) { //similar to set timeout, if this time now is less than the cooldown (function below), FIRE!
+    if (!this.player.alive || this.time.now < this.nextFire) { //similar to set timeout, if this time now is less than the cooldown (function below), FIRE!
       return;
     }
     if (this.beamPool.countDead() === 0)  {
@@ -188,10 +208,10 @@ PhaserGame = {
     var beam = this.beamPool.getFirstExists(false);
 
     beam.reset(this.player.x+70, this.player.y);
-    beam.body.velocity.x = 500;
+    beam.body.velocity.x = 1000; //firerate
   },
   maketail: function() {
-    if (this.tailPool.countDead() === 0) {
+    if  (!this.player.alive || this.tailPool.countDead() === 0) {
       return;
     }
     var tail = this.tailPool.getFirstExists(false);
