@@ -28,7 +28,20 @@ PhaserGame = {
     this.player.animations.add('wiggle', [0, 1, 2, 3, 4], 10, true);
     this.player.animations.play('wiggle')
     this.player.speed = 300; //player initial speed
-   this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
+    this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
+
+    // var tailCount = 20;
+    // this.tailPool = this.add.group();
+    // this.tailPool.enableBody = true;
+    // this.tailPool.physicsBodyType = Phaser.Physics.ARCADE;
+    // this.tail.createMultiple(tailCount, 'nyantail');
+    // this.tailPool.setAll('anchor.x', 0.5);
+    // this.tailPool.setAll('anchor.y', 0.5);
+    // this.tailPool.setAll('outOfBoundsKill', true);
+    // this.tailPool.setAll('checkWorldBounds', true);
+
+    this.tails = [];
+
 
     //nyan-cat pew pew
     // this.beam = this.add.sprite(80, 220, 'beam');
@@ -66,7 +79,7 @@ PhaserGame = {
 
 
     this.instructions = this.add.text(400,550,
-    'Use the arrow keys to move nyan-sama\n'+
+    'Use the arrow keys to move nyan-cat\n'+
     'and Space to pew-pew',
     {font: '20px monospace', fill: '#fff', align: 'center'});
     this.instructions.anchor.setTo(0.5, 0.5);
@@ -91,6 +104,8 @@ PhaserGame = {
     if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
       this.fire();
     }
+    //nyan tail
+      this.maketail();
 
     //player movement!
     this.player.body.velocity.x = 0;
@@ -111,7 +126,6 @@ PhaserGame = {
     if (this.instructions.exists && this.time.now > this.instExpire) {
     this.instructions.destroy();
     }
-
 },
 
 
@@ -152,7 +166,15 @@ PhaserGame = {
 
     beam.reset(this.player.x+70, this.player.y);
     beam.body.velocity.x = 500;
-  }
+  },
+  maketail: function() {
+    var tail = this.add.sprite(this.player.x-35, this.player.y, 'nyantail');
+    tail.anchor.setTo(0.5, 0.5);
+    this.physics.enable(tail, Phaser.Physics.ARCADE);
+    tail.body.velocity.x = -700;
+    this.tails.push(tail);
+    tail.animations.add('makerainbowwiggle', [0,1], 30, true);
+   },
 
 };
 //end
