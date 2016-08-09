@@ -29,6 +29,7 @@ PhaserGame = {
     this.player.animations.play('wiggle')
     this.player.speed = 300; //player initial speed
     this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
+    this.player.body.setSize(20, 20, 35, 5);
 
 //grouping is necessary to adhere to memory leaks and reuse sprites, for time & memory, as well as giving it all properties
 
