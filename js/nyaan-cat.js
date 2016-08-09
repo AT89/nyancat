@@ -1,3 +1,5 @@
+//use of ! is equal part for excitement and bookmarking
+
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
 
 PhaserGame = {
@@ -29,16 +31,19 @@ PhaserGame = {
    this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
 
     //nyan-cat pew pew
-    this.beam = this.add.sprite(80, 220, 'beam');
-    this.physics.enable(this.beam, Phaser.Physics.ARCADE);
-    this.beam.anchor.setTo(0.5,0.5)
-    this.beam.body.velocity.x = 500;
+    // this.beam = this.add.sprite(80, 220, 'beam');
+    // this.physics.enable(this.beam, Phaser.Physics.ARCADE);
+    // this.beam.anchor.setTo(0.5,0.5)
+    // this.beam.body.velocity.x = 500;
+    this.beam = [];
+    this.nextFire = 0;
+    this.shotDelay = 200; //SHOOTINGRATE! use this for powerup etc
 
     this.cursors = this.input.keyboard.createCursorKeys(); //this is a-conveniene function built-in with phaser <3
 
     //create enemies
     this.enemy = this.add.sprite(500,220, 'magusEnemy');
-    this.enemy.anchor.setTo(0.5, 0.5);
+    this.enemy.anchor.setTo(0.5,   0.5);
     this.physics.enable(this.enemy, Phaser.Physics.ARCADE);
     this.enemy.animations.add('mageMovement', [0, 1, 9], 5, true);
     this.enemy.animations.play('mageMovement')
@@ -59,14 +64,20 @@ PhaserGame = {
 
     //U.PHYSICS!
     this.physics.arcade.overlap(
-      this.bullet, this.player, this.playerHit, null, this
+      this.beam, this.player, this.playerHit, null, this
     );
-    this.physics.arcade.overlap(
-      this.beam, this.enemy, this.enemyHit, null, this
-    );
+    for (var i = 0; i < this.beam.length; i++) {
+      this.physics.arcade.overlap(
+        this.beam[i], this.enemy, this.enemyHit, null, this
+      );
+    }
+
+    //nyan-cat pew-pew
+    if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+      this.fire();
+    }
 
     //player movement!
-
     this.player.body.velocity.x = 0;
     this.player.body.velocity.y = 0;
 
@@ -107,8 +118,20 @@ PhaserGame = {
     explosion.anchor.setTo(0.5, 0.5);
     explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11], false);
     explosion.play('boom', 15, false, true);
-
   },
+  fire: function()  {
+    if (this.time.now < this.nextFire) {
+      return;
+    }
+
+    this.nextFire = this.time.now + this.shotDelay;
+
+    var beam = this.add.sprite(this.player.x+70, this.player.y, 'beam');
+    beam.anchor.setTo(0.5, 0.5);
+    this.physics.enable(beam, Phaser.Physics.ARCADE);
+    beam.body.velocity.x = 500;
+    this.beam.push(beam);
+  }
 
 };
 //end
