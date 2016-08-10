@@ -80,7 +80,7 @@ PhaserGame = {
     enemy.animations.add('bombMovement', [0, 2, 1, 3], 5, true);
     });
     this.nextEnemyAt = 0;
-    this.enemyDelay = 500; //spawning time
+    this.enemyDelay = 100; //spawning time
 
 
     // this.bullet = this.add.sprite(470, 180,'bullet')
