@@ -5,6 +5,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
 PhaserGame = {
   ////////////////////PRELOAD////////////////////////
   preload: function() {
+    //sprites and images
     this.load.image('background', 'assets/props/bgnight.png');
     this.load.spritesheet('player', 'assets/cat/nyancat.png', 61, 28);
     this.load.image('beam', 'assets/props/beam.png');
@@ -13,6 +14,10 @@ PhaserGame = {
     this.load.spritesheet('magusEnemy', 'assets/bogeys/mages.png', 19, 19);
     this.load.spritesheet('bombEnemy', 'assets/bogeys/bombs.png', 18, 18);
     this.load.spritesheet('explosion', 'assets/props/explosion.png', 94, 94)
+
+
+    //sounds
+    this.load.audio('sad','assets/sounds/sad.mp3');
   },
 
   ////////////////////CREATE////////////////////////
@@ -68,7 +73,7 @@ PhaserGame = {
     this.enemyPool.setAll('outOfBoundsKill', true);
     this.enemyPool.setAll('checkWorldBounds', true);
     this.enemyPool.forEach(function (enemy){
-    enemy.animations.add('mageMovement', [0, 1, 2], 5, true);
+    enemy.animations.add('bombMovement', [0, 2, 1, 3], 5, true);
     });
     this.nextEnemyAt = 0;
     this.enemyDelay = 500; //spawning time
@@ -105,8 +110,8 @@ PhaserGame = {
     this.nextFire = 0;
     this.shotDelay = 40; //SHOOTINGRATE! use this for powerup et
 
-
-
+    //audio
+     this.deathSFX = this.add.audio('sad');
 
     //instructions message
     this.instructions = this.add.text(400,550,
@@ -131,7 +136,7 @@ PhaserGame = {
       enemy.reset(700,this.rnd.integerInRange (0, 600));
       // also randomize the speed
       enemy.body.velocity.x = -this.rnd.integerInRange(60, 300);
-      enemy.play('mageMovement');
+      enemy.play('bombMovement');
     }
     //U.PHYSICS!
     // this.physics.arcade.overlap(
@@ -194,6 +199,7 @@ PhaserGame = {
     explosion.anchor.setTo(0.5, 0.5);
     explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
     explosion.play('boom', 15, false, true);
+    this.deathSFX.play();
   },
   enemyHit: function (beam, enemy) {
     beam.kill();
@@ -230,6 +236,7 @@ PhaserGame = {
     //MEANINGLESS ANIMATION
     // tail.animations.add('makerainbowwiggle', [0,1], 30, true);
    },
+
 
 
 };
