@@ -19,6 +19,8 @@ PhaserGame = {
 
     //sounds
     this.load.audio('sad','assets/sounds/sad.mp3');
+    this.load.audio('pew','assets/sounds/pew.mp3');
+    this.load.audio('expboom','assets/sounds/boom.mp3')
   },
 
   ////////////////////CREATE////////////////////////
@@ -114,6 +116,8 @@ PhaserGame = {
 
     //audio
      this.deathSFX = this.add.audio('sad');
+     this.pewSFX = this.add.audio('pew');
+     this.boomSFX = this.add.audio('expboom');
 
 
      //scoreboard //-!-
@@ -221,6 +225,7 @@ PhaserGame = {
     explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
     explosion.play('boom', 15, false, true);
     this.addToScore(enemy.reward);//-!-
+    this.pewSFX.play();
   },
 
 
@@ -237,6 +242,7 @@ PhaserGame = {
 
     beam.reset(this.player.x+70, this.player.y);
     beam.body.velocity.x = 1000; //firerate
+
   },
   maketail: function() {
     if  (!this.player.alive || this.tailPool.countDead() === 0) {
