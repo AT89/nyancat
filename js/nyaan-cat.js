@@ -114,6 +114,16 @@ PhaserGame = {
     this.nextFire = 0;
     this.shotDelay = 40; //SHOOTINGRATE! use this for powerup et
 
+    this.explosionPool = this.add.group();
+    this.explosionPool.enableBody = true;
+    this.explosionPool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.explosionPool.createMultiple(100, 'explosion2');
+    this.explosionPool.setAll('anchor.x', 0.5);
+    this.explosionPool.setAll('anchor.y', 0.5);
+    this.explosionPool.forEach(function (explosion) {
+      explosion.animations.add('boom');
+    });
+
     //audio
      this.deathSFX = this.add.audio('sad');
      this.pewSFX = this.add.audio('pew');
@@ -210,8 +220,7 @@ PhaserGame = {
   playerHit: function (enemy, player) {
     player.kill();
     enemy.kill()
-
-    var explosion = this.add.sprite(player.x, player.y, 'explosion');
+    var explosion = this.add.sprite(player.x, player.y, 'explosion2');
     explosion.anchor.setTo(0.5, 0.5);
     explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
     explosion.play('boom', 15, false, true);
@@ -219,11 +228,8 @@ PhaserGame = {
   },
   enemyHit: function (beam, enemy) {
     beam.kill();
+    this.explode(enemy);
     enemy.kill();
-    var explosion = this.add.sprite(enemy.x, enemy.y, 'explosion2');
-    explosion.anchor.setTo(0.5, 0.5);
-    explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
-    explosion.play('boom', 15, false, true);
     this.addToScore(enemy.reward);//-!-
     this.pewSFX.play();
   },
@@ -254,6 +260,18 @@ PhaserGame = {
 
     //MEANINGLESS ANIMATION
     // tail.animations.add('makerainbowwiggle', [0,1], 30, true);
+   },
+
+   explode: function (sprite) {
+     if (this.explosionPool.countDead() === 0) {
+       return;
+     }
+     var explosion = this.explosionPool.getFirstExists(false);
+     explosion.reset(sprite.x, sprite.y);
+     explosion.play('boom', 15, false, true);
+     // add the original sprite's velocity to the explosion
+     explosion.body.velocity.x = sprite.body.velocity.x;
+     explosion.body.velocity.y = sprite.body.velocity.y;
    },
 
    addToScore: function (score) {
