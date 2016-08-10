@@ -47,6 +47,14 @@
 * set up HP for enemies and player
 * finish reading the learnpub
 
+- Monday, Tues -collideWorldBounds
+
+- Wednesday
+* ok the basic game is good..Need to
+* create 'bosses' from killing 15 bombs
+* want to add a dynamic scoreboard and have player names showing (express?) + websockets
+* Expand the map, reset all the little bombs, add a camera to 800x600
+
 
 ##Coding
 * Used prototypes to keep the code-clean

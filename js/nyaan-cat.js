@@ -6,7 +6,7 @@ PhaserGame = {
   ////////////////////PRELOAD////////////////////////
   preload: function() {
     //sprites and images
-    this.load.image('background', 'assets/props/bgnight.png');
+    this.load.image('background', 'assets/props/bgspace.jpg');
     this.load.spritesheet('player', 'assets/cat/nyancat.png', 61, 28);
     this.load.image('beam', 'assets/props/beam.png');
     this.load.image('bullet', 'assets/props/bullet.png');
@@ -220,7 +220,7 @@ PhaserGame = {
   playerHit: function (enemy, player) {
     player.kill();
     enemy.kill()
-    var explosion = this.add.sprite(player.x, player.y, 'explosion2');
+    var explosion = this.add.sprite(player.x, player.y, 'explosion');
     explosion.anchor.setTo(0.5, 0.5);
     explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
     explosion.play('boom', 15, false, true);

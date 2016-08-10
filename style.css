@@ -1,12 +1,14 @@
 *{
   color: white;
-  background-color: black;
+  /*background-color: black;*/
+
 }
 body{
   display: flex;
   align-items: center;
   align-content: center;
   flex-direction: column;
+  background-image: url('assets/props/bgsite.png');
 }
 h1{
 
