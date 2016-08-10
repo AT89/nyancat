@@ -68,7 +68,7 @@ PhaserGame = {
     this.enemyPool.setAll('outOfBoundsKill', true);
     this.enemyPool.setAll('checkWorldBounds', true);
     this.enemyPool.forEach(function (enemy){
-    enemy.animations.add('mageMovement', [0, 3], 5, true);
+    enemy.animations.add('mageMovement', [0, 1, 2], 5, true);
     });
     this.nextEnemyAt = 0;
     this.enemyDelay = 500; //spawning time
@@ -130,7 +130,7 @@ PhaserGame = {
       // spawn at a random location, right of the screen
       enemy.reset(700,this.rnd.integerInRange (0, 600));
       // also randomize the speed
-      enemy.body.velocity.x = -this.rnd.integerInRange(30, 100);
+      enemy.body.velocity.x = -this.rnd.integerInRange(60, 300);
       enemy.play('mageMovement');
     }
     //U.PHYSICS!
