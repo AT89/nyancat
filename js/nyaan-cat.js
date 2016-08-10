@@ -13,11 +13,14 @@ PhaserGame = {
     this.load.spritesheet('nyantail', 'assets/cat/tail.png', 38, 28);
     this.load.spritesheet('magusEnemy', 'assets/bogeys/mages.png', 19, 19);
     this.load.spritesheet('bombEnemy', 'assets/bogeys/bombs.png', 18, 18);
-    this.load.spritesheet('explosion', 'assets/props/explosion.png', 94, 94)
+    this.load.spritesheet('explosion', 'assets/props/explosion.png', 94, 94);
+    this.load.spritesheet('explosion2', 'assets/props/explosion2.png', 94, 94)
 
 
     //sounds
     this.load.audio('sad','assets/sounds/sad.mp3');
+    this.load.audio('pew','assets/sounds/pew.mp3');
+    this.load.audio('expboom','assets/sounds/boom.mp3')
   },
 
   ////////////////////CREATE////////////////////////
@@ -72,6 +75,7 @@ PhaserGame = {
     this.enemyPool.setAll('anchor.y', 0.5)
     this.enemyPool.setAll('outOfBoundsKill', true);
     this.enemyPool.setAll('checkWorldBounds', true);
+    this.enemyPool.setAll('reward', 100, false, false, 0, true); //-!-
     this.enemyPool.forEach(function (enemy){
     enemy.animations.add('bombMovement', [0, 2, 1, 3], 5, true);
     });
@@ -112,6 +116,18 @@ PhaserGame = {
 
     //audio
      this.deathSFX = this.add.audio('sad');
+     this.pewSFX = this.add.audio('pew');
+     this.boomSFX = this.add.audio('expboom');
+
+
+     //scoreboard //-!-
+     this.score = 0;
+     this.scoreText = this.add.text(
+         780, 20, '' + this.score,
+         {font: '20px monospace', fill: '#fff', align: 'center' }
+     );
+     this.scoreText.anchor.setTo(1, 0.5);
+
 
     //instructions message
     this.instructions = this.add.text(400,550,
@@ -204,10 +220,12 @@ PhaserGame = {
   enemyHit: function (beam, enemy) {
     beam.kill();
     enemy.kill();
-    var explosion = this.add.sprite(enemy.x, enemy.y, 'explosion');
+    var explosion = this.add.sprite(enemy.x, enemy.y, 'explosion2');
     explosion.anchor.setTo(0.5, 0.5);
     explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
     explosion.play('boom', 15, false, true);
+    this.addToScore(enemy.reward);//-!-
+    this.pewSFX.play();
   },
 
 
@@ -224,6 +242,7 @@ PhaserGame = {
 
     beam.reset(this.player.x+70, this.player.y);
     beam.body.velocity.x = 1000; //firerate
+
   },
   maketail: function() {
     if  (!this.player.alive || this.tailPool.countDead() === 0) {
@@ -237,6 +256,10 @@ PhaserGame = {
     // tail.animations.add('makerainbowwiggle', [0,1], 30, true);
    },
 
+   addToScore: function (score) {
+       this.score += score;
+       this.scoreText.text = this.score;
+   },
 
 
 };
