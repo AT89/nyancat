@@ -119,6 +119,8 @@ PhaserGame = {
 
 
 
+
+
   ////////////////////UPDATE////////////////////////
   update: function() {
 
@@ -146,6 +148,10 @@ PhaserGame = {
     //nyan-cat pew-pew
     if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
       this.fire();
+      this.player.speed = 100; //player shooting speed speed
+    }
+    if (!this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+      this.player.speed = 300;
     }
     //nyan tail
       this.maketail();
@@ -197,6 +203,8 @@ PhaserGame = {
     explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
     explosion.play('boom', 15, false, true);
   },
+
+
   fire: function()  {
     if (!this.player.alive || this.time.now < this.nextFire) { //similar to set timeout, if this time now is less than the cooldown (function below), FIRE!
       return;
@@ -221,8 +229,8 @@ PhaserGame = {
 
     //MEANINGLESS ANIMATION
     // tail.animations.add('makerainbowwiggle', [0,1], 30, true);
-
    },
+
 
 };
 //end
