@@ -18,6 +18,7 @@ PhaserGame = {
     this.load.spritesheet('explosion2', 'assets/props/explosion2.png', 94, 94);
     this.load.spritesheet('explosion3', 'assets/props/explosion3.png', 94, 94);
     this.load.spritesheet('explosion4', 'assets/props/explosion4.png', 94, 94);
+    this.load.spritesheet('explosion5', 'assets/props/explosion5.png', 94, 94);
 
     //reaperEnemy
     this.load.spritesheet('reaperEnemy', 'assets/reaper/reaper.png',70,77 );
@@ -31,7 +32,7 @@ PhaserGame = {
     this.load.audio('sad','assets/sounds/sad.mp3');
     this.load.audio('pew','assets/sounds/pew.mp3');
     this.load.audio('reaperDeath','assets/sounds/reaperdeath.wav')
-
+    this.load.audio('firereaperDeath','assets/sounds/reaperdeath2.wav')
 
   },
 
@@ -93,7 +94,8 @@ PhaserGame = {
     });
     this.nextEnemyAt = 0;
     this.enemyDelay = 200; //spawning time
-    this.reaperCounter = 0; //this is the counter for reaper spawn!
+    this.reaperCounter = 0; //this is the counter for reaperspawn!
+    this.firereaperCounter = 0; //firereaper spawn counter
 
     //reaperPool!
     this.reaperPool = this.add.group();
@@ -108,28 +110,35 @@ PhaserGame = {
     this.reaperPool.forEach(function (reaper){
     reaper.animations.add('reaperMovement', [0, 1, 2, 3], 10, true);
     // reaper.animations.add('reaperSlice', [0,1,2,3,4], 10, true);
-    reaper.animations.add('reaperSlicing', [0, 1, 2], 10, true);
+    // reaper.animations.add('reaperSlicing', [0, 1, 2], 10, true);
+    });
+
+    //firereaperPool!
+    this.firereaperPool = this.add.group();
+    this.firereaperPool.enableBody = true;
+    this.firereaperPool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.firereaperPool.createMultiple(80, 'firereaperEnemy');
+    this.firereaperPool.setAll('anchor.x', 0.5)
+    this.firereaperPool.setAll('anchor.y', 0.5)
+    this.firereaperPool.setAll('outOfBoundsKill', true);
+    this.firereaperPool.setAll('checkWorldBounds', true);
+    this.firereaperPool.setAll('reward', 1000, false, false, 0, true);
+    this.firereaperPool.forEach(function (firereaper){
+    firereaper.animations.add('reaperSlicing', [0, 1, 2], 20, true);
     });
 
 
-    // this.bullet = this.add.sprite(470, 180,'bullet')
-    // this.bullet.anchor.setTo(0.5,0.5)
-    // this.physics.enable(this.bullet, Phaser.Physics.ARCADE);
-    // this.bullet.body.velocity.x = -500;
-    //enemy bullet
-    this.bulletPool = this.add.group();
-    this.bulletPool.enableBody = true;
-    this.bulletPool.physicsBodyType = Phaser.Physics.ARCADE;
-    //limit to only 100 bullets on screen at once
-    this.bulletPool.createMultiple(100, 'bullet');
-    this.bulletPool.setAll('anchor.x', 0.5);
-    this.bulletPool.setAll('anchor.y',0.5);
-    // Automatically kill the bullet sprites when they go out of bounds
-    this.bulletPool.setAll('outOfBoundsKill', true);
-    this.bulletPool.setAll('checkWorldBounds', true);
-    //need to add firing from mages..
-
-
+    // this.bulletPool = this.add.group();
+    // this.bulletPool.enableBody = true;
+    // this.bulletPool.physicsBodyType = Phaser.Physics.ARCADE;
+    // //limit to only 100 bullets on screen at once
+    // this.bulletPool.createMultiple(100, 'bullet');
+    // this.bulletPool.setAll('anchor.x', 0.5);
+    // this.bulletPool.setAll('anchor.y',0.5);
+    // // Automatically kill the bullet sprites when they go out of bounds
+    // this.bulletPool.setAll('outOfBoundsKill', true);
+    // this.bulletPool.setAll('checkWorldBounds', true);
+    // //need to add firing from mages..
 
     this.beamPool.enableBody = true;
     this.beamPool.physicsBodyType = Phaser.Physics.ARCADE;
@@ -163,10 +172,21 @@ PhaserGame = {
     explosion4.animations.add('boom');
     });
 
+    this.explosion5Pool = this.add.group();
+    this.explosion5Pool.enableBody = true;
+    this.explosion5Pool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.explosion5Pool.createMultiple(100, 'explosion5');
+    this.explosion5Pool.setAll('anchor.x', 0.5);
+    this.explosion5Pool.setAll('anchor.y', 0.5);
+    this.explosion5Pool.forEach(function (explosion5) {
+    explosion5.animations.add('boom');
+    });
+
     //audio
      this.deathSFX = this.add.audio('sad');
      this.pewSFX = this.add.audio('pew');
      this.reaperDeathSFX = this.add.audio('reaperDeath');
+     this.firereaperDeathSFX = this.add.audio('firereaperDeath');
 
 
      //scoreboard //-!-
