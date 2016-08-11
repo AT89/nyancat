@@ -1,7 +1,7 @@
 *{
   color: white;
   /*background-color: black;*/
-
+  font-family: 'Copse', serif;
 }
 body{
   display: flex;
@@ -11,5 +11,5 @@ body{
   background-image: url('assets/props/bgsite.png');
 }
 h1{
-
+font-size: 40px;
 }

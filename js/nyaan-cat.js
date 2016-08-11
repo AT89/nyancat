@@ -13,14 +13,26 @@ PhaserGame = {
     this.load.spritesheet('nyantail', 'assets/cat/tail.png', 38, 28);
     this.load.spritesheet('magusEnemy', 'assets/bogeys/mages.png', 19, 19);
     this.load.spritesheet('bombEnemy', 'assets/bogeys/bombs.png', 18, 18);
+    //explosions
     this.load.spritesheet('explosion', 'assets/props/explosion.png', 94, 94);
-    this.load.spritesheet('explosion2', 'assets/props/explosion2.png', 94, 94)
+    this.load.spritesheet('explosion2', 'assets/props/explosion2.png', 94, 94);
+    this.load.spritesheet('explosion3', 'assets/props/explosion3.png', 94, 94);
+    this.load.spritesheet('explosion4', 'assets/props/explosion4.png', 94, 94);
 
+    //reaperEnemy
+    this.load.spritesheet('reaperEnemy', 'assets/reaper/reaper.png',70,77 );
+    // this.load.spritesheet('reaperEnemy', 'assets/reaper/reaperSlice.png', 76, 99);
+
+    // this.load.spritesheet('reaperSlice', 'assets/reaper/reaperSlice.png', 76, 99);
+    this.load.spritesheet('reaperSlicing', 'assets/reaper/reaperSlicing.png',143, 142);
+    this.load.spritesheet('reaperShot', 'assets/reaper/sliceShot.png', 17, 100);
 
     //sounds
     this.load.audio('sad','assets/sounds/sad.mp3');
     this.load.audio('pew','assets/sounds/pew.mp3');
-    this.load.audio('expboom','assets/sounds/boom.mp3')
+    this.load.audio('boomSound','assets/sounds/boom.mp3')
+
+
   },
 
   ////////////////////CREATE////////////////////////
@@ -67,6 +79,7 @@ PhaserGame = {
 
     this.cursors = this.input.keyboard.createCursorKeys(); //this is a-conveniene function built-in with phaser <3
 
+    //bombPool!
     this.enemyPool = this.add.group();
     this.enemyPool.enableBody = true;
     this.enemyPool.physicsBodyType = Phaser.Physics.ARCADE;
@@ -80,7 +93,24 @@ PhaserGame = {
     enemy.animations.add('bombMovement', [0, 2, 1, 3], 5, true);
     });
     this.nextEnemyAt = 0;
-    this.enemyDelay = 100; //spawning time
+    this.enemyDelay = 200; //spawning time
+    this.reaperCounter = 0; //this is the counter for reaper spawn!
+
+    //reaperPool!
+    this.reaperPool = this.add.group();
+    this.reaperPool.enableBody = true;
+    this.reaperPool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.reaperPool.createMultiple(80, 'reaperEnemy');
+    this.reaperPool.setAll('anchor.x', 0.5)
+    this.reaperPool.setAll('anchor.y', 0.5)
+    this.reaperPool.setAll('outOfBoundsKill', true);
+    this.reaperPool.setAll('checkWorldBounds', true);
+    this.reaperPool.setAll('reward', 500, false, false, 0, true);
+    this.reaperPool.forEach(function (reaper){
+    reaper.animations.add('reaperMovement', [0, 1, 2, 3], 10, true);
+    // reaper.animations.add('reaperSlice', [0,1,2,3,4], 10, true);
+    reaper.animations.add('reaperSlicing', [0, 1, 2], 10, true);
+    });
 
 
     // this.bullet = this.add.sprite(470, 180,'bullet')
@@ -117,17 +147,27 @@ PhaserGame = {
     this.explosionPool = this.add.group();
     this.explosionPool.enableBody = true;
     this.explosionPool.physicsBodyType = Phaser.Physics.ARCADE;
-    this.explosionPool.createMultiple(100, 'explosion2');
+    this.explosionPool.createMultiple(100, 'explosion');
     this.explosionPool.setAll('anchor.x', 0.5);
     this.explosionPool.setAll('anchor.y', 0.5);
     this.explosionPool.forEach(function (explosion) {
-      explosion.animations.add('boom');
+    explosion.animations.add('boom');
+    });
+
+    this.explosion4Pool = this.add.group();
+    this.explosion4Pool.enableBody = true;
+    this.explosion4Pool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.explosion4Pool.createMultiple(100, 'explosion4');
+    this.explosion4Pool.setAll('anchor.x', 0.5);
+    this.explosion4Pool.setAll('anchor.y', 0.5);
+    this.explosion4Pool.forEach(function (explosion4) {
+    explosion4.animations.add('boom');
     });
 
     //audio
      this.deathSFX = this.add.audio('sad');
      this.pewSFX = this.add.audio('pew');
-     this.boomSFX = this.add.audio('expboom');
+     this.boomSFX = this.add.audio('boomSound');
 
 
      //scoreboard //-!-
@@ -155,6 +195,28 @@ PhaserGame = {
   ////////////////////UPDATE////////////////////////
   update: function() {
 
+    if ((this.reaperCounter > 2) && (this.reaperPool.countDead() > 0)) {
+      this.reaperCounter = 0;
+      var reaper = this.reaperPool.getFirstExists(false);
+
+      // spawn at a random location at the top
+      reaper.reset(
+        this.rnd.integerInRange(20, this.game.width - 20), 0);
+
+      // choose a random target location at the bottom
+      var target = this.rnd.integerInRange(20, this.game.width - 20);
+
+      // move to target and rotate the sprite accordingly
+      reaper.rotation = this.physics.arcade.moveToXY(
+        reaper, target, this.game.height,this.rnd.integerInRange(200, 300)) - Math.PI / 2;
+      reaper.play('reaperSlicing');
+
+      // each reaper has their own shot timer
+      reaper.nextShotAt = 0;
+      }
+
+
+
     if (this.nextEnemyAt < this.time.now && this.enemyPool.countDead() > 0) {
       this.nextEnemyAt = this.time.now + this.enemyDelay;
       var enemy = this.enemyPool.getFirstExists(false);
@@ -173,19 +235,26 @@ PhaserGame = {
       this.beamPool, this.enemyPool, this.enemyHit, null, this
     )
     this.physics.arcade.overlap(
+      this.beamPool, this.reaperPool, this.reaperHit, null, this
+    )
+    this.physics.arcade.overlap(
       this.player, this.enemyPool, this.playerHit, null, this
     )
+    this.physics.arcade.overlap(
+      this.player, this.reaperPool, this.playerHit, null, this
+    )
+
 
     //nyan-cat pew-pew
     if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
       this.fire();
-      this.player.speed = 100; //player shooting speed speed
+      this.player.speed = 200; //player shooting speed speed
     }
     if (!this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
       this.player.speed = 300;
     }
     //nyan tail
-      this.maketail();
+    this.maketail();
 
     //player movement!
     this.player.body.velocity.x = 0;
@@ -210,17 +279,12 @@ PhaserGame = {
 
 
 
-  //check hitbox!
-  render: function() {
-    // this.game.debug.body(this.bullet);
-    // this.game.debug.body(this.enemy);
-    // this.game.debug.body(this.player);
-  },
+
   //collisions!
   playerHit: function (enemy, player) {
     player.kill();
     enemy.kill()
-    var explosion = this.add.sprite(player.x, player.y, 'explosion');
+    var explosion = this.add.sprite(player.x, player.y, 'explosion3');
     explosion.anchor.setTo(0.5, 0.5);
     explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
     explosion.play('boom', 15, false, true);
@@ -230,8 +294,16 @@ PhaserGame = {
     beam.kill();
     this.explode(enemy);
     enemy.kill();
-    this.addToScore(enemy.reward);//-!-
+    this.addToScore(enemy.reward);
     this.pewSFX.play();
+    this.reaperCounter++
+  },
+  reaperHit: function (beam, reaper) {
+    beam.kill();
+    this.explode4(reaper);
+    reaper.kill();
+    this.addToScore(reaper.reward);
+    this.boomSFX.play();
   },
 
 
@@ -272,6 +344,17 @@ PhaserGame = {
      // add the original sprite's velocity to the explosion
      explosion.body.velocity.x = sprite.body.velocity.x;
      explosion.body.velocity.y = sprite.body.velocity.y;
+   },
+   explode4: function (sprite) {
+     if (this.explosion4Pool.countDead() === 0) {
+       return;
+     }
+     var explosion4 = this.explosion4Pool.getFirstExists(false);
+     explosion4.reset(sprite.x, sprite.y);
+     explosion4.play('boom', 15, false, true);
+     // add the original sprite's velocity to the explosion
+     explosion4.body.velocity.x = sprite.body.velocity.x;
+     explosion4.body.velocity.y = sprite.body.velocity.y;
    },
 
    addToScore: function (score) {
