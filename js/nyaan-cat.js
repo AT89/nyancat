@@ -30,7 +30,7 @@ PhaserGame = {
     //sounds
     this.load.audio('sad','assets/sounds/sad.mp3');
     this.load.audio('pew','assets/sounds/pew.mp3');
-    this.load.audio('boomSound','assets/sounds/boom.mp3')
+    this.load.audio('reaperDeath','assets/sounds/reaperdeath.wav')
 
 
   },
@@ -47,7 +47,6 @@ PhaserGame = {
     this.player.anchor.setTo(0.5, 0.5);
     this.player.animations.add('wiggle', [0, 1, 2, 3, 4], 10, true);
     this.player.animations.play('wiggle')
-    this.player.speed = 300; //player initial speed
     this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
     this.player.body.setSize(20, 20, 35, 5);
 
@@ -167,7 +166,7 @@ PhaserGame = {
     //audio
      this.deathSFX = this.add.audio('sad');
      this.pewSFX = this.add.audio('pew');
-     this.boomSFX = this.add.audio('boomSound');
+     this.reaperDeathSFX = this.add.audio('reaperDeath');
 
 
      //scoreboard //-!-
@@ -251,7 +250,7 @@ PhaserGame = {
       this.player.speed = 200; //player shooting speed speed
     }
     if (!this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-      this.player.speed = 300;
+      this.player.speed = 400;
     }
     //nyan tail
     this.maketail();
@@ -303,7 +302,7 @@ PhaserGame = {
     this.explode4(reaper);
     reaper.kill();
     this.addToScore(reaper.reward);
-    this.boomSFX.play();
+    this.reaperDeathSFX.play();
   },
 
 
