@@ -1,41 +1,7 @@
-//use of ! is equal part for excitement and bookmarking
+var playState = {
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
-
-PhaserGame = {
   ////////////////////PRELOAD////////////////////////
-  preload: function() {
-    //sprites and images
-    this.load.image('background', 'assets/props/bgspace.jpg');
-    this.load.spritesheet('player', 'assets/cat/nyancat.png', 61, 28);
-    this.load.image('beam', 'assets/props/beam.png');
-    this.load.image('bullet', 'assets/props/bullet.png');
-    this.load.spritesheet('nyantail', 'assets/cat/tail.png', 38, 28);
-    this.load.spritesheet('magusEnemy', 'assets/bogeys/mages.png', 19, 19);
-    this.load.spritesheet('bombEnemy', 'assets/bogeys/bombs.png', 18, 18);
-    //explosions
-    this.load.spritesheet('explosion', 'assets/props/explosion.png', 94, 94);
-    this.load.spritesheet('explosion2', 'assets/props/explosion2.png', 94, 94);
-    this.load.spritesheet('explosion3', 'assets/props/explosion3.png', 94, 94);
-    this.load.spritesheet('explosion4', 'assets/props/explosion4.png', 94, 94);
-    this.load.spritesheet('explosion5', 'assets/props/explosion5.png', 94, 94);
 
-    //reaperEnemy
-    this.load.spritesheet('reaperEnemy', 'assets/reaper/reaper.png',70,77 );
-    // this.load.spritesheet('reaperEnemy', 'assets/reaper/reaperSlice.png', 76, 99);
-
-    // this.load.spritesheet('reaperSlice', 'assets/reaper/reaperSlice.png', 76, 99);
-
-    this.load.spritesheet('fireReaper', 'assets/reaper/firereaperSlicing.png', 142, 139);
-    this.load.spritesheet('reaperShot', 'assets/reaper/sliceShot.png', 17, 100);
-
-    //sounds
-    this.load.audio('sad','assets/sounds/sad.mp3');
-    this.load.audio('pew','assets/sounds/pew.mp3');
-    this.load.audio('reaperDeath','assets/sounds/reaperdeath.wav')
-    this.load.audio('firereaperDeath','assets/sounds/reaperdeath2.wav')
-
-  },
 
   ////////////////////CREATE////////////////////////
   create: function()  {
@@ -285,7 +251,11 @@ PhaserGame = {
 
               //nyan-cat pew-pew
               if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-                this.fire();
+                if (this.returnText && this.returnText.exists) {
+                  this.restartGame();
+                } else {
+                  this.fire();
+                }
                 this.player.speed = 400; //player shooting speed speed
               }
               if (!this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
@@ -498,7 +468,20 @@ PhaserGame = {
               this.endText.anchor.setTo(0.5, 0);
 
               this.showReturn = this.time.now + 2000;
-          }
-        };
-          //end
-          game.state.add('Game', PhaserGame, true);
+          },
+          restartGame: function ()  {
+            this.enemyPool.destroy()
+            this.reaperPool.destroy()
+            this.firereaperPool.destroy()
+            this.speedCounter = 0;
+            this.spawnCounter = 0;
+            this.reaperCounter = 0;
+            this.firereaperCounter = 0;
+            this.score = 0;
+            game.state.start('menu');
+          },
+          // revive: function (){
+          //   this.player = this.add.sprite(64, 220, 'player');
+          // }
+
+      };
