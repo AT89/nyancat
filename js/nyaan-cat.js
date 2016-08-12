@@ -275,7 +275,15 @@ PhaserGame = {
               this.physics.arcade.overlap(
                 this.player, this.firereaperPool, this.playerbyFireReaperHit, null, this
               )
-
+              this.physics.arcade.overlap(
+                this.tailPool, this.enemyPool, this.enemyHitbyTail, null, this
+              )
+              this.physics.arcade.overlap(
+                this.tailPool, this.reaperPool, this.reaperHitbyTail, null, this
+              )
+              this.physics.arcade.overlap(
+                this.tailPool, this.firereaperPool, this.firereaperHitbyTail, null, this
+              )
 
               //nyan-cat pew-pew
               if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
@@ -360,6 +368,33 @@ PhaserGame = {
             },
             firereaperHit: function (beam, firereaper) {
               beam.kill();
+              this.explode5(firereaper);
+              firereaper.kill();
+              this.addToScore(firereaper.reward);
+              this.firereaperDeathSFX.play();
+              this.reaperCounter++;
+            },
+            enemyHitbyTail: function (tail, enemy) {
+              tail.kill();
+              this.explode(enemy);
+              enemy.kill();
+              this.addToScore(enemy.reward);
+              this.pewSFX.play();
+              this.reaperCounter++;
+              this.firereaperCounter++
+              this.speedCounter++
+              this.spawnCounter++
+            },
+            reaperHitbyTail: function (tail, reaper) {
+              tail.kill();
+              this.explode4(reaper);
+              reaper.kill();
+              this.addToScore(reaper.reward);
+              this.reaperDeathSFX.play();
+              this.firereaperCounter++
+            },
+            firereaperHitbyTail: function (tail, firereaper) {
+              tail.kill();
               this.explode5(firereaper);
               firereaper.kill();
               this.addToScore(firereaper.reward);
