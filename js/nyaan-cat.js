@@ -253,9 +253,7 @@ PhaserGame = {
                 enemy.play('bombMovement');
               }
               //U.PHYSICS!
-              // this.physics.arcade.overlap(
-              //   this.bulletPool, this.player, this.playerHit, null, this
-              // );
+
 
               this.physics.arcade.overlap(
                 this.beamPool, this.enemyPool, this.enemyHit, null, this
@@ -314,9 +312,17 @@ PhaserGame = {
               if (this.instructions.exists && this.time.now > this.instExpire) {
                 this.instructions.destroy();
               }
+              if (this.showReturn && this.time.now > this.showReturn) {
+                this.returnText = this.add.text(
+                  this.game.width / 2, this.game.height / 2 + 20,
+                  '=^.^= Hit space to play again =^.^=',
+                  { font: '20px monospace', fill: '#fff'}
+                )
+                this.returnText.anchor.setTo(0.5, 0.5);
+                this.showReturn = false;
+              }
+
             },
-
-
 
 
             //collisions!
@@ -328,6 +334,7 @@ PhaserGame = {
               explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
               explosion.play('boom', 15, false, true);
               this.deathSFX.play();
+              this.displayEnd(false);
             },
             playerbyReaperHit: function (reaper, player) {
               player.kill();
@@ -337,6 +344,7 @@ PhaserGame = {
               explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
               explosion.play('boom', 15, false, true);
               this.deathSFX.play();
+              this.displayEnd(false);
             },
             playerbyFireReaperHit: function (firereaper, player) {
               player.kill();
@@ -346,6 +354,7 @@ PhaserGame = {
               explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
               explosion.play('boom', 15, false, true);
               this.deathSFX.play();
+              this.displayEnd(false);
             },
             enemyHit: function (beam, enemy) {
               beam.kill();
@@ -357,6 +366,7 @@ PhaserGame = {
               this.firereaperCounter++
               this.speedCounter++
               this.spawnCounter++
+
             },
             reaperHit: function (beam, reaper) {
               beam.kill();
@@ -365,6 +375,7 @@ PhaserGame = {
               this.addToScore(reaper.reward);
               this.reaperDeathSFX.play();
               this.firereaperCounter++
+
             },
             firereaperHit: function (beam, firereaper) {
               beam.kill();
@@ -373,6 +384,7 @@ PhaserGame = {
               this.addToScore(firereaper.reward);
               this.firereaperDeathSFX.play();
               this.reaperCounter++;
+
             },
             enemyHitbyTail: function (tail, enemy) {
               tail.kill();
@@ -384,6 +396,7 @@ PhaserGame = {
               this.firereaperCounter++
               this.speedCounter++
               this.spawnCounter++
+
             },
             reaperHitbyTail: function (tail, reaper) {
               tail.kill();
@@ -392,6 +405,7 @@ PhaserGame = {
               this.addToScore(reaper.reward);
               this.reaperDeathSFX.play();
               this.firereaperCounter++
+
             },
             firereaperHitbyTail: function (tail, firereaper) {
               tail.kill();
@@ -400,6 +414,7 @@ PhaserGame = {
               this.addToScore(firereaper.reward);
               this.firereaperDeathSFX.play();
               this.reaperCounter++;
+
             },
 
 
@@ -468,8 +483,22 @@ PhaserGame = {
               this.score += score;
               this.scoreText.text = this.score;
             },
+            displayEnd: function (win) {
+              // you can't win and lose at the same time
+              if (this.endText && this.endText.exists) {
+                return;
+              }
 
+              var msg = win ? 'You Win!!!' : 'Game Over!';
+              //no win conditions lol
+              this.endText = this.add.text(
+                this.game.width / 2, this.game.height / 2 - 60, msg,
+                { font: '72px monospace', fill: '#fff' }
+              );
+              this.endText.anchor.setTo(0.5, 0);
 
-          };
+              this.showReturn = this.time.now + 2000;
+          }
+        };
           //end
           game.state.add('Game', PhaserGame, true);
