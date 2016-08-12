@@ -126,7 +126,7 @@ PhaserGame = {
     this.firereaperPool.setAll('checkWorldBounds', true);
     this.firereaperPool.setAll('reward', 1000, false, false, 0, true);
     this.firereaperPool.forEach(function (firereaper){
-      firereaper.animations.add('reaperSlicing', [1, 0, 2], 15, true);
+      firereaper.animations.add('reaperSlicing', [1, 1, 1, 0, 0, 0, 2], 15, true);
     });
 
 
@@ -288,10 +288,10 @@ PhaserGame = {
               //nyan-cat pew-pew
               if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
                 this.fire();
-                this.player.speed = 200; //player shooting speed speed
+                this.player.speed = 400; //player shooting speed speed
               }
               if (!this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-                this.player.speed = 400;
+                this.player.speed = 600;
               }
               //nyan tail
               this.maketail();
