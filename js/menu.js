@@ -4,8 +4,8 @@ var menuState = {
     // this.background = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
     // this.background.autoScroll(-80, 0);
     this.vortex = this.add.sprite(0, 0, 'vortex')
-    this.vortex.animations.add('flying', [0, 2, 4, 6, 8], 5, true);
-    this.vortex.play('flying', 10, true, true);
+    this.vortex.animations.add('flying', [9,6, 4, 2, 0]);
+    this.vortex.play('flying', 12, true, true);
 
 
 

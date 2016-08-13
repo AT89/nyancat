@@ -1,7 +1,6 @@
 *{
-  color: white;
-  /*background-color: black;*/
-  font-family: 'Copse', serif;
+
+    /*background-color: black;*/
 }
 body{
   display: flex;
@@ -10,6 +9,21 @@ body{
   flex-direction: column;
   background-image: url('assets/props/bgsite.png');
 }
-h1{
-font-size: 40px;
+
+h1, p{
+  color: white;
+  font-family: 'Copse', serif;
+}
+p{
+  font-size: 10px;
+}
+a{
+  text-decoration: none;
+}
+a.visted{
+  color: pink;
+}
+a{
+  color: pink;
+  text-decoration: bold;
 }
