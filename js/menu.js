@@ -35,35 +35,35 @@ var menuState = {
 
 
 
-      var score_1 = game.add.text(game.world.width* 5/8,
+      var score_1 = game.add.text(game.world.width /2,
         game.world.height * 2/10,
-        ''+ game.hiFive[0].name+'    '+ game.hiFive[0].player_score+'',
-        {font: '30px monospace', fill:'#fff'});
-        score_1.anchor.setTo(1, 0);
+        ''+ game.hiFive[0].name+' '+ game.hiFive[0].player_score+'',
+        {font: '47px monospace', fill:'#fff'});
+        score_1.anchor.setTo(.5, 0);
 
-      var score_2 = game.add.text(game.world.width* 5/8,
+      var score_2 = game.add.text(game.world.width /2,
         game.world.height * 3/10,
-        ''+ game.hiFive[1].name+'    '+ game.hiFive[1].player_score+'',
-        {font: '30px monospace', fill:'#fff'});
-        score_2.anchor.setTo(1, 0);
+        ''+ game.hiFive[1].name+' '+ game.hiFive[1].player_score+'',
+        {font: '40px monospace', fill:'#fff'});
+        score_2.anchor.setTo(.5, 0);
 
-      var score_3 = game.add.text(game.world.width* 5/8,
+      var score_3 = game.add.text(game.world.width /2,
         game.world.height * 4/10,
-        ''+ game.hiFive[2].name+'    '+ game.hiFive[2].player_score+'',
-        {font: '30px monospace', fill:'#fff'});
-        score_3.anchor.setTo(1, 0);
+        ''+ game.hiFive[2].name+' '+ game.hiFive[2].player_score+'',
+        {font: '36px monospace', fill:'#fff'});
+        score_3.anchor.setTo(.5, 0);
 
-      var score_4 = game.add.text(game.world.width* 5/8,
+      var score_4 = game.add.text(game.world.width /2,
         game.world.height * 5/10,
-        ''+ game.hiFive[3].name+'    '+ game.hiFive[3].player_score+'',
-        {font: '30px monospace', fill:'#fff'});
-        score_4.anchor.setTo(1, 0);
+        ''+ game.hiFive[3].name+' '+ game.hiFive[3].player_score+'',
+        {font: '34px monospace', fill:'#fff'});
+        score_4.anchor.setTo(.5, 0);
 
-      var score_5 = game.add.text(game.world.width* 5/8,
+      var score_5 = game.add.text(game.world.width /2,
         game.world.height * 6/10,
-        ''+ game.hiFive[4].name+'    '+ game.hiFive[4].player_score+'',
-        {font: '30px monospace', fill:'#fff'});
-        score_5.anchor.setTo(1, 0);
+        ''+ game.hiFive[4].name+' '+ game.hiFive[4].player_score+'',
+        {font: '32px monospace', fill:'#fff'});
+        score_5.anchor.setTo(.5, 0);
     }
 
       function error (data, response){
@@ -71,9 +71,9 @@ var menuState = {
       }
 
     var topscores = game.add.text(game.world.width *1/2,
-      game.world.height* 1/10,
-       "TOP SCORES",
-      {font: '30px monospace', fill:'#fff'} );
+      game.world.height* 1/11,
+       "=^.^= TOP SCORES =^.^=",
+      {font: '50px monospace', fill:'#fff'} );
       topscores.anchor.setTo(0.5,0)
 
 
