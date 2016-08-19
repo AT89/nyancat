@@ -47,13 +47,21 @@
 * set up HP for enemies and player
 * finish reading the learnpub
 
+
 - Monday, Tues -collideWorldBounds
 
-- Wednesday
+
+- Wednesday.....
 * ok the basic game is good..Need to
 * create 'bosses' from killing 15 bombs
 * want to add a dynamic scoreboard and have player names showing (express?) + websockets
 * Expand the map, reset all the little bombs, add a camera to 800x600
+
+
+-Saturday....
+* Backend for scores hosted on https://nyancatscores.herokuapp.com/
+* Current plan is to use anhsolo.com domain, make an angular site for all games, use angular 2 way databinding.
+* need to figure out how to enter name on the game (hold the name for next play so somehow, var has to persist through the game states [Global var?])
 
 
 ##Coding

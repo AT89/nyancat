@@ -5,5 +5,6 @@
   game.state.add('load', loadState);
   game.state.add('menu', menuState);
   game.state.add('nyanCat', playState);
+  game.state.add('score', scoreState);
 
   game.state.start('boot');

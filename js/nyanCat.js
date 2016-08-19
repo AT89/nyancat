@@ -37,7 +37,7 @@ var playState = {
     this.beamPool.createMultiple(100, 'beam');
     this.beamPool.setAll('anchor.x', 0.5);
     this.beamPool.setAll('anchor.y',0.5);
-    // Automatically kill the bullet sprites when they go out of bounds
+    // Automatically kill the beam sprites when they go out of bounds
     this.beamPool.setAll('outOfBoundsKill', true);
     this.beamPool.setAll('checkWorldBounds', true);
     this.nextFire = 0;
@@ -478,7 +478,7 @@ var playState = {
             this.reaperCounter = 0;
             this.firereaperCounter = 0;
             this.score = 0;
-            game.state.start('menu');
+            game.state.start('score');
           },
           // revive: function (){
           //   this.player = this.add.sprite(64, 220, 'player');
