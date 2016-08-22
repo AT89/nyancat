@@ -289,20 +289,25 @@ var playState = {
                   { font: '20px monospace', fill: '#fff', align: 'center'}
                 )
 
-                var name_input = this.game.add.inputField(game.world.width /2,
+                var name_input = this.game.add.inputField(game.world.width * 2/5,
                   game.world.height * 6/10);
-                  name_input.anchor.setTo(.5 ,0)
+                  name_input.anchor.setTo(0 ,0)
                   //LOGIC GOES HERE
                   // console.log(inputField)
-                  if (name_input.exists) {
+                  var doOnce = 0;
+                  if ((name_input.exists) & (doOnce === 0)) {
                     $(document).keypress(function(e) {
                       if(e.which == 13) {
-                        this.addHighScore, name_input.domElement.value, this.score
+                        this.addHighScore, name_input.domElement.value, this.score;
+
                         // var player_name = name_input.domElement.value;
                         console.log("POST!!!")
+                        doOnce = doOnce + 1;
                       }
                     });
+
                   }
+
                   // console.log(name_input.domElement.value)
                   // var player_score = this.score;
                   // console.log(player_name, player_score);
@@ -348,9 +353,10 @@ var playState = {
               this.deathSFX.play();
               this.displayEnd(false);
             },
-            playerbyFireReaperHit: function (firereaper, player) {
+            playerbyFireReaperHit: function (player) {
               player.kill();
-              firereaper.kill()
+              // firereaper.kill()
+              //took out firereaper from function to keep firereaper alive while player goes boom
               var explosion = this.add.sprite(player.x, player.y, 'explosion5');
               explosion.anchor.setTo(0.5, 0.5);
               explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
