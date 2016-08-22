@@ -63,7 +63,7 @@ var playState = {
     this.nextEnemyAt = 0;
     this.enemyDelay = (200)
     this.reaperCounter = 0; //this is the counter for reaperspawn!
-    this.firereaperCounter = 0; //firereaper spawn
+    this.firereaperCounter = 0; //firereaperspawn!
     this.speedCounter = 0; //speed multiplier
     this.spawnCounter = 0; //spawn multiplier
 
@@ -102,11 +102,11 @@ var playState = {
     this.beamPool.createMultiple(100, 'beam');
     this.beamPool.setAll('anchor.x', 0.5);
     this.beamPool.setAll('anchor.y',0.5);
-    // Automatically kill the bullet sprites when they go out of bounds
+    // Automatically kill the beam sprites when they go out of bounds
     this.beamPool.setAll('outOfBoundsKill', true);
     this.beamPool.setAll('checkWorldBounds', true);
     this.nextFire = 0;
-    this.shotDelay = 40; //SHOOTINGRATE! use this for powerup et
+    this.shotDelay = 40; //SHOOTINGRATE! use this for powerup etc
 
     this.explosionPool = this.add.group();
     this.explosionPool.enableBody = true;
@@ -284,10 +284,30 @@ var playState = {
               }
               if (this.showReturn && this.time.now > this.showReturn) {
                 this.returnText = this.add.text(
-                  this.game.width / 2, this.game.height / 2 + 20,
-                  '=^.^= Hit space to play again =^.^=',
-                  { font: '20px monospace', fill: '#fff'}
+                  this.game.width / 2, this.game.height / 2 + 80,
+                  'Enter your name to save score to Leaderboard\n\n\n=^.^= Hit space to play again =^.^=',
+                  { font: '20px monospace', fill: '#fff', align: 'center'}
                 )
+
+                var name_input = this.game.add.inputField(game.world.width /2,
+                  game.world.height * 6/10);
+                  name_input.anchor.setTo(.5 ,0)
+                  //LOGIC GOES HERE
+                  // console.log(inputField)
+                  if (name_input.exists) {
+                    $(document).keypress(function(e) {
+                      if(e.which == 13) {
+                        this.addHighScore, name_input.domElement.value, this.score
+                        // var player_name = name_input.domElement.value;
+                        console.log("POST!!!")
+                      }
+                    });
+                  }
+                  // console.log(name_input.domElement.value)
+                  // var player_score = this.score;
+                  // console.log(player_name, player_score);
+
+                  //POST STUFF FOR PLAYER_NAME AND PLAAYER_SCORE GOES HERE
                 this.returnText.anchor.setTo(0.5, 0.5);
                 this.showReturn = false;
               }
@@ -296,6 +316,18 @@ var playState = {
 
 
             //collisions!
+            addHighScore: function (name, score) {
+              $.ajax({
+                type: "POST",
+                url: "http://localhost:3000/scores",
+                data: {
+                  name: name,
+                  player_score: score
+                },
+                success: success,
+                dataType: dataType
+              });
+            },
             playerHit: function (enemy, player) {
               player.kill();
               enemy.kill()
@@ -465,6 +497,7 @@ var playState = {
                 this.game.width / 2, this.game.height / 2 - 60, msg,
                 { font: '72px monospace', fill: '#fff' }
               );
+
               this.endText.anchor.setTo(0.5, 0);
 
               this.showReturn = this.time.now + 2000;
@@ -477,11 +510,9 @@ var playState = {
             this.spawnCounter = 0;
             this.reaperCounter = 0;
             this.firereaperCounter = 0;
-            this.score = 0;
-            game.state.start('score');
+
+            game.state.start('menu');
           },
-          // revive: function (){
-          //   this.player = this.add.sprite(64, 220, 'player');
-          // }
+
 
       };

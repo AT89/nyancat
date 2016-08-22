@@ -20,3 +20,5 @@ var scoreState = {
   }
 
 }
+
+//SCRAP THIS STATE
