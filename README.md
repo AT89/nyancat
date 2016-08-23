@@ -1,4 +1,7 @@
+![supercat!](http://i.imgur.com/wRx0njy.gif)
+
 #NYAN-CAT the side scrolling cute shoot em up (bullet hell) game adventure
+
 
 ##Planning
 - Initial Planning
@@ -33,9 +36,20 @@
 * Bounds can repeat, as in if a player goes all the way North, he will arrive at the last Block view (South)
 
 * Game should be mobile friendly, on mobile I want to tap the screen to shoot and enable the gyroscope of the device for movement. AND have a default horizontal orientation.
+*
+##Cool pics in making of:
+![leaderboard AJAX works!](http://i.imgur.com/hjndGSH.png)
+- 8/16/2016 - Yay the GET AJAX request works with my Rails server. Took me awhile to remember I forgot Rack CORS..
+
+![reaper sprites!] (http://i.imgur.com/8S8pBYx.png)
+- 8/10/2016 - Making the reaper sprites using pixlr.com
+
 
 
 ##Captains Log
+- Tuesday 8/23/2016
+* still working on the POST for player scores
+* phaser-input is nice for input form field https://github.com/orange-games/phaser-input
 - Friday 8/5/2016
 * Planning.. and deciding what to work on!
 - Monday 8/8/2016
@@ -47,25 +61,14 @@
 * set up HP for enemies and player
 * finish reading the learnpub
 
-
 - Monday, Tues -collideWorldBounds
 
-
-- Wednesday.....
+- Wednesday
 * ok the basic game is good..Need to
 * create 'bosses' from killing 15 bombs
 * want to add a dynamic scoreboard and have player names showing (express?) + websockets
 * Expand the map, reset all the little bombs, add a camera to 800x600
 
-
--Saturday....
-* Backend for scores hosted on https://nyancatscores.herokuapp.com/
-* Current plan is to use anhsolo.com domain, make an angular site for all games, use angular 2 way databinding.
-* need to figure out how to enter name on the game (hold the name for next play so somehow, var has to persist through the game states [Global var?])
-
-
-##Coding
-* Used prototypes to keep the code-clean
 
 
 ##Made with:
@@ -82,3 +85,6 @@
 - http://spritedatabase.net/ for getting the sprites
 - NYAN-CAT
 - Soundtrack: Yum yum by Essence (200% speed inspired by Runling Run WC3 UMS  custom map https://www.youtube.com/watch?v=hjIvbZTcSow)
+-
+
+![nyancat!](http://i.imgur.com/64eW42B.png)
