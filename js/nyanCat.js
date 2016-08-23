@@ -298,7 +298,7 @@ var playState = {
                   if ((name_input.exists) & (doOnce === 0)) {
                     $(document).keypress(function(e) {
                       if(e.which == 13) {
-                        this.addHighScore, name_input.domElement.value, this.score;
+                        this.addHighScore(name_input.domElement.value, this.score)
 
                         // var player_name = name_input.domElement.value;
                         console.log("POST!!!")
