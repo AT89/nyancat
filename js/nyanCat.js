@@ -1,3 +1,23 @@
+function addHighScore(name, score) {
+  console.log(name)
+  console.log(score)
+    var obj = { name: name, player_score: score }
+    $.ajax({
+      url: "http://localhost:3000/scores",
+      type: "POST",
+      dataType: 'json',
+      data: obj,
+      crossDomain: true,
+      success: function(data, textStatus, jqXHR) {
+        console.log(data)
+        console.log("It worked!!!")
+      },
+      error: function(data, textStatus, jqXHR) {
+        console.log("It no work ):")
+      }
+    });
+}
+
 var playState = {
 
   ////////////////////PRELOAD////////////////////////
@@ -8,6 +28,8 @@ var playState = {
     //create the background
     this.background = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
     this.background.autoScroll(-80, 0);
+
+
 
     //create nyan-cat
     this.player = this.add.sprite(64, 220, 'player');
@@ -294,20 +316,20 @@ var playState = {
                   name_input.anchor.setTo(0 ,0)
                   //LOGIC GOES HERE
                   // console.log(inputField)
-                  var doOnce = 0;
-                  if ((name_input.exists) & (doOnce === 0)) {
+                  var finalScore = this.score;
+                  if (name_input.exists) {
                     $(document).keypress(function(e) {
                       if(e.which == 13) {
-                        this.addHighScore(name_input.domElement.value, this.score)
+                        addHighScore(name_input.domElement.value, finalScore)
+
 
                         // var player_name = name_input.domElement.value;
                         console.log("POST!!!")
-                        doOnce = doOnce + 1;
+
                       }
                     });
 
                   }
-
                   // console.log(name_input.domElement.value)
                   // var player_score = this.score;
                   // console.log(player_name, player_score);
@@ -321,18 +343,6 @@ var playState = {
 
 
             //collisions!
-            addHighScore: function (name, score) {
-              $.ajax({
-                type: "POST",
-                url: "http://localhost:3000/scores",
-                data: {
-                  name: name,
-                  player_score: score
-                },
-                success: success,
-                dataType: dataType
-              });
-            },
             playerHit: function (enemy, player) {
               player.kill();
               enemy.kill()

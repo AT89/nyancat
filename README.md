@@ -36,8 +36,8 @@
 * Bounds can repeat, as in if a player goes all the way North, he will arrive at the last Block view (South)
 
 * Game should be mobile friendly, on mobile I want to tap the screen to shoot and enable the gyroscope of the device for movement. AND have a default horizontal orientation.
-*
-##Cool pics in making of:
+
+#Cool pics in making of:
 ![leaderboard AJAX works!](http://i.imgur.com/hjndGSH.png)
 - 8/16/2016 - Yay the GET AJAX request works with my Rails server. Took me awhile to remember I forgot Rack CORS..
 
