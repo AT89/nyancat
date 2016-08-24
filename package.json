@@ -1,0 +1,27 @@
+{
+  "name": "nyancat",
+  "version": "1.1.0",
+  "description": "![supercat!](http://i.imgur.com/wRx0njy.gif) Shoot stuff with space, dodge bombs, kill and avoid the reapers, beware of the fire reapers, shoot for the new high score!",
+  "main": "=^.^=",
+  "dependencies": {},
+  "engines": {
+    "node": "6.1.0"
+  },
+  "devDependencies": {
+    "phaser-input": "^1.2.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AT89/nyancat.git"
+  },
+  "author": "Anh Truong",
+  "license": "ISC",
+  "bugs": {
+    "url": "http://anhtice.com/nyancat"
+  },
+  "homepage": "https://github.com/AT89/nyancat#readme"
+
+}
