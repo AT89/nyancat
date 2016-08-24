@@ -37,7 +37,7 @@ var playState = {
     this.beamPool.createMultiple(100, 'beam');
     this.beamPool.setAll('anchor.x', 0.5);
     this.beamPool.setAll('anchor.y',0.5);
-    // Automatically kill the bullet sprites when they go out of bounds
+    // Automatically kill the beam sprites when they go out of bounds
     this.beamPool.setAll('outOfBoundsKill', true);
     this.beamPool.setAll('checkWorldBounds', true);
     this.nextFire = 0;
@@ -102,7 +102,7 @@ var playState = {
     this.beamPool.createMultiple(100, 'beam');
     this.beamPool.setAll('anchor.x', 0.5);
     this.beamPool.setAll('anchor.y',0.5);
-    // Automatically kill the bullet sprites when they go out of bounds
+    // Automatically kill the beam sprites when they go out of bounds
     this.beamPool.setAll('outOfBoundsKill', true);
     this.beamPool.setAll('checkWorldBounds', true);
     this.nextFire = 0;
@@ -316,9 +316,9 @@ var playState = {
               this.deathSFX.play();
               this.displayEnd(false);
             },
-            playerbyFireReaperHit: function (firereaper, player) {
+            playerbyFireReaperHit: function ( player) {
               player.kill();
-              firereaper.kill()
+              // firereaper.kill() //no kill firereaper
               var explosion = this.add.sprite(player.x, player.y, 'explosion5');
               explosion.anchor.setTo(0.5, 0.5);
               explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);

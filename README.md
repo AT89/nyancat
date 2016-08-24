@@ -1,4 +1,7 @@
+![supercat!](http://i.imgur.com/wRx0njy.gif)
+
 #NYAN-CAT the side scrolling cute shoot em up (bullet hell) game adventure
+
 
 ##Planning
 - Initial Planning
@@ -34,8 +37,21 @@
 
 * Game should be mobile friendly, on mobile I want to tap the screen to shoot and enable the gyroscope of the device for movement. AND have a default horizontal orientation.
 
+#Cool pics in making of:
+![leaderboard AJAX works!](http://i.imgur.com/hjndGSH.png)
+- 8/16/2016 - Yay the GET AJAX request works with my Rails server. Took me awhile to remember I forgot Rack CORS..
+
+![reaper sprites!] (http://i.imgur.com/8S8pBYx.png)
+- 8/10/2016 - Making the reaper sprites using pixlr.com
+
+
 
 ##Captains Log
+- Wednesday 8/24/2016
+* The back end works! Posting name and score works and GETing top 5 scores works! but only on local. Having issues with Heroku for hosting since I used a NPM for the form input. Need to either figure out how to how this on Heroku (ugh) or just use a canvas input or a basic form. 
+- Tuesday 8/23/2016
+* still working on the POST for player scores
+* phaser-input is nice for input form field https://github.com/orange-games/phaser-input
 - Friday 8/5/2016
 * Planning.. and deciding what to work on!
 - Monday 8/8/2016
@@ -56,9 +72,6 @@
 * Expand the map, reset all the little bombs, add a camera to 800x600
 
 
-##Coding
-* Used prototypes to keep the code-clean
-
 
 ##Made with:
 - Education from WDI General Assembly, instructors Nick, Jesse, Adrian
@@ -74,3 +87,6 @@
 - http://spritedatabase.net/ for getting the sprites
 - NYAN-CAT
 - Soundtrack: Yum yum by Essence (200% speed inspired by Runling Run WC3 UMS  custom map https://www.youtube.com/watch?v=hjIvbZTcSow)
+-
+
+![nyancat!](http://i.imgur.com/64eW42B.png)
