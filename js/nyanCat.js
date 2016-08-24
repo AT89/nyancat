@@ -1,16 +1,18 @@
+/////scoreboard posting goes here/////
 function addHighScore(name, score) {
-  console.log(name)
-  console.log(score)
     var obj = { name: name, player_score: score }
+    console.log(obj)
     $.ajax({
-      url: "http://localhost:3000/scores",
+      url: "https://nyancatscores.herokuapp.com/scores",
       type: "POST",
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       dataType: 'json',
       data: obj,
       crossDomain: true,
       success: function(data, textStatus, jqXHR) {
-        console.log(data)
-        console.log("It worked!!!")
+        // console.log(data)
+        // console.log("JSON POST FIRE!!!")
+        console.log("HIGH SCORE SUBMITTED NYAAAAA")
       },
       error: function(data, textStatus, jqXHR) {
         console.log("It no work ):")
@@ -18,11 +20,8 @@ function addHighScore(name, score) {
     });
 }
 
+
 var playState = {
-
-  ////////////////////PRELOAD////////////////////////
-
-
   ////////////////////CREATE////////////////////////
   create: function()  {
     //create the background
@@ -307,7 +306,7 @@ var playState = {
               if (this.showReturn && this.time.now > this.showReturn) {
                 this.returnText = this.add.text(
                   this.game.width / 2, this.game.height / 2 + 80,
-                  'Enter your name to save score to Leaderboard\n\n\n=^.^= Hit space to play again =^.^=',
+                  'Enter your name (and hit enter) to save to Leaderboard\n\n\n=^.^= Hit space to play again =^.^=',
                   { font: '20px monospace', fill: '#fff', align: 'center'}
                 )
 
@@ -317,14 +316,19 @@ var playState = {
                   //LOGIC GOES HERE
                   // console.log(inputField)
                   var finalScore = this.score;
+                  console.log(finalScore)
+                  var entercounter = 0;
                   if (name_input.exists) {
                     $(document).keypress(function(e) {
-                      if(e.which == 13) {
-                        addHighScore(name_input.domElement.value, finalScore)
-
+                      if(e.which == 13) { //enter key is 13
+                        entercounter = entercounter +1;
+                        if (entercounter == 1){
+                          addHighScore(name_input.domElement.value, finalScore)
+                          // console.log("POST!!!")
+                        }
 
                         // var player_name = name_input.domElement.value;
-                        console.log("POST!!!")
+
 
                       }
                     });
@@ -518,6 +522,7 @@ var playState = {
 
               this.showReturn = this.time.now + 2000;
           },
+
           restartGame: function ()  {
             this.enemyPool.destroy()
             this.reaperPool.destroy()
@@ -526,7 +531,7 @@ var playState = {
             this.spawnCounter = 0;
             this.reaperCounter = 0;
             this.firereaperCounter = 0;
-
+            obj = null;
             game.state.start('menu');
           },
 
