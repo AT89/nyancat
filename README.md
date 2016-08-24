@@ -46,15 +46,18 @@
 
 
 
-##Captains Log
-- Wednesday 8/24/2016
-* The back end works! Posting name and score works and GETing top 5 scores works! but only on local. Having issues with Heroku for hosting since I used a NPM for the form input. Need to either figure out how to how this on Heroku (ugh) or just use a canvas input or a basic form. 
-- Tuesday 8/23/2016
+#Captains Log
+##Wednesday 8/24/2016
+* The back end works! Posting name and score works and GETing top 5 scores works! but only on local. Having issues with Heroku for hosting since I used a NPM for the form input. Need to either figure out how to how this on Heroku (ugh) or just use a canvas input or a basic form.
+##Tuesday 8/23/2016
 * still working on the POST for player scores
 * phaser-input is nice for input form field https://github.com/orange-games/phaser-input
-- Friday 8/5/2016
-* Planning.. and deciding what to work on!
-- Monday 8/8/2016
+##Wednesday
+* ok the basic game is good..Need to
+* create 'bosses' from killing 15 bombs
+* want to add a dynamic scoreboard and have player names showing (express?) + websockets
+* Expand the map, reset all the little bombs, add a camera to 800x600
+##Monday 8/8/2016
 * Looked at source code from basic shoot em up.
 * Created the sprites and placed Nyan-cat (player), added Bogeys (enemies) the Bomb and the mage
 * Spent a 2 hours trying out different methods to append a tail to the nyan-cat...
@@ -62,15 +65,8 @@
 * Spawn multiple enemies
 * set up HP for enemies and player
 * finish reading the learnpub
-
-- Monday, Tues -collideWorldBounds
-
-- Wednesday
-* ok the basic game is good..Need to
-* create 'bosses' from killing 15 bombs
-* want to add a dynamic scoreboard and have player names showing (express?) + websockets
-* Expand the map, reset all the little bombs, add a camera to 800x600
-
+##Friday 8/5/2016
+* Planning.. and deciding what to work on!
 
 
 ##Made with:
@@ -79,7 +75,7 @@
 - Runs on node.js with http-server
 - Phaser.io
 - Socket.io for websockets
-- Heroku for hosting
+- Heroku for hosting backend and possibly this app itself to get the phaser-input working..
 - Heroku Rails for scoreboard
 - Shoot em up in the afternoon learnpub tutorial (fantastic!)
 - Inspired by Jamestown and Ikaruga
@@ -87,6 +83,6 @@
 - http://spritedatabase.net/ for getting the sprites
 - NYAN-CAT
 - Soundtrack: Yum yum by Essence (200% speed inspired by Runling Run WC3 UMS  custom map https://www.youtube.com/watch?v=hjIvbZTcSow)
--
+- phaser input for form but makes me need to host with node.js. Thanks..
 
 ![nyancat!](http://i.imgur.com/64eW42B.png)
