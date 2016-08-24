@@ -310,8 +310,10 @@ var playState = {
                   { font: '20px monospace', fill: '#fff', align: 'center'}
                 )
 
-                var name_input = this.game.add.inputField(game.world.width * 2/5,
-                  game.world.height * 6/10);
+                var name_input = this.game.add.inputField
+                (game.world.width * 2/5, game.world.height * 6/10, {
+                  placeHolder: 'nyanCat',
+                });
                   name_input.anchor.setTo(0 ,0)
                   //LOGIC GOES HERE
                   // console.log(inputField)
