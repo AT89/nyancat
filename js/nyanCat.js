@@ -1,8 +1,5 @@
 var playState = {
 
-  ////////////////////PRELOAD////////////////////////
-
-
   ////////////////////CREATE////////////////////////
   create: function()  {
     //create the background
@@ -468,20 +465,20 @@ var playState = {
               this.endText.anchor.setTo(0.5, 0);
 
               this.showReturn = this.time.now + 2000;
-          },
-          restartGame: function ()  {
-            this.enemyPool.destroy()
-            this.reaperPool.destroy()
-            this.firereaperPool.destroy()
-            this.speedCounter = 0;
-            this.spawnCounter = 0;
-            this.reaperCounter = 0;
-            this.firereaperCounter = 0;
-            this.score = 0;
-            game.state.start('menu');
-          },
-          // revive: function (){
-          //   this.player = this.add.sprite(64, 220, 'player');
-          // }
+            },
+            restartGame: function ()  {
+              this.enemyPool.destroy()
+              this.reaperPool.destroy()
+              this.firereaperPool.destroy()
+              this.speedCounter = 0;
+              this.spawnCounter = 0;
+              this.reaperCounter = 0;
+              this.firereaperCounter = 0;
+              this.score = 0;
+              game.state.start('menu');
+            },
+            // revive: function (){
+            //   this.player = this.add.sprite(64, 220, 'player');
+            // }
 
-      };
+          };
