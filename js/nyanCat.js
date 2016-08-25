@@ -1,7 +1,7 @@
 /////scoreboard posting goes here/////
 function addHighScore(name, score) {
     var obj = { name: name, player_score: score }
-    console.log(obj)
+    // console.log(obj)
     $.ajax({
       url: "https://nyancatscores.herokuapp.com/scores",
       type: "POST",
