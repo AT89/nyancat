@@ -40,6 +40,7 @@
 #Cool pics in making of:
 ![leaderboard AJAX works!](http://i.imgur.com/hjndGSH.png)
 - 8/16/2016 - Yay the GET AJAX request works with my Rails server. Took me awhile to remember I forgot Rack CORS..
+<<<<<<< HEAD
 
 ![reaper sprites!] (http://i.imgur.com/8S8pBYx.png)
 - 8/10/2016 - Making the reaper sprites using pixlr.com
@@ -52,11 +53,6 @@
 ##Tuesday 8/23/2016
 * still working on the POST for player scores
 * phaser-input is nice for input form field https://github.com/orange-games/phaser-input
-##Wednesday
-* ok the basic game is good..Need to
-* create 'bosses' from killing 15 bombs
-* want to add a dynamic scoreboard and have player names showing (express?) + websockets
-* Expand the map, reset all the little bombs, add a camera to 800x600
 ##Monday 8/8/2016
 * Looked at source code from basic shoot em up.
 * Created the sprites and placed Nyan-cat (player), added Bogeys (enemies) the Bomb and the mage
@@ -65,8 +61,15 @@
 * Spawn multiple enemies
 * set up HP for enemies and player
 * finish reading the learnpub
-##Friday 8/5/2016
-* Planning.. and deciding what to work on!
+##MTues
+* collideWorldBounds
+##Wednesday
+* ok the basic game is good..Need to
+* create 'bosses' from killing 15 bombs
+* want to add a dynamic scoreboard and have player names showing (express?) + websockets
+* Expand the map, reset all the little bombs, add a camera to 800x600
+
+
 
 
 ##Made with:
@@ -83,6 +86,8 @@
 - http://spritedatabase.net/ for getting the sprites
 - NYAN-CAT
 - Soundtrack: Yum yum by Essence (200% speed inspired by Runling Run WC3 UMS  custom map https://www.youtube.com/watch?v=hjIvbZTcSow)
+<<<<<<< HEAD
 - phaser input for form but makes me need to host with node.js. Thanks..
+
 
 ![nyancat!](http://i.imgur.com/64eW42B.png)

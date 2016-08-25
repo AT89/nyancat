@@ -1,10 +1,34 @@
-var playState = {
+/////scoreboard posting goes here/////
+function addHighScore(name, score) {
+    var obj = { name: name, player_score: score }
+    // console.log(obj)
+    $.ajax({
+      url: "https://nyancatscores.herokuapp.com/scores",
+      type: "POST",
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      dataType: 'json',
+      data: obj,
+      crossDomain: true,
+      success: function(data, textStatus, jqXHR) {
+        // console.log(data)
+        // console.log("JSON POST FIRE!!!")
+        console.log("HIGH SCORE SUBMITTED NYAAAAA")
+      },
+      error: function(data, textStatus, jqXHR) {
+        console.log("It no work ):")
+      }
+    });
+}
 
+
+var playState = {
   ////////////////////CREATE////////////////////////
   create: function()  {
     //create the background
     this.background = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
     this.background.autoScroll(-80, 0);
+
+
 
     //create nyan-cat
     this.player = this.add.sprite(64, 220, 'player');
@@ -60,7 +84,7 @@ var playState = {
     this.nextEnemyAt = 0;
     this.enemyDelay = (200)
     this.reaperCounter = 0; //this is the counter for reaperspawn!
-    this.firereaperCounter = 0; //firereaper spawn
+    this.firereaperCounter = 0; //firereaperspawn!
     this.speedCounter = 0; //speed multiplier
     this.spawnCounter = 0; //spawn multiplier
 
@@ -103,7 +127,7 @@ var playState = {
     this.beamPool.setAll('outOfBoundsKill', true);
     this.beamPool.setAll('checkWorldBounds', true);
     this.nextFire = 0;
-    this.shotDelay = 40; //SHOOTINGRATE! use this for powerup et
+    this.shotDelay = 40; //SHOOTINGRATE! use this for powerup etc
 
     this.explosionPool = this.add.group();
     this.explosionPool.enableBody = true;
@@ -281,10 +305,42 @@ var playState = {
               }
               if (this.showReturn && this.time.now > this.showReturn) {
                 this.returnText = this.add.text(
-                  this.game.width / 2, this.game.height / 2 + 20,
-                  '=^.^= Hit space to play again =^.^=',
-                  { font: '20px monospace', fill: '#fff'}
+                  this.game.width / 2, this.game.height / 2 + 80,
+                  'Enter your name (and hit enter) to save to Leaderboard\n\n\n=^.^= Hit space to play again =^.^=',
+                  { font: '20px monospace', fill: '#fff', align: 'center'}
                 )
+
+                var name_input = this.game.add.inputField
+                (game.world.width * 2/5, game.world.height * 6/10, {
+                  placeHolder: 'nyanCat',
+                });
+                  name_input.anchor.setTo(0 ,0)
+                  //LOGIC GOES HERE
+                  // console.log(inputField)
+                  var finalScore = this.score;
+                  console.log(finalScore)
+                  var entercounter = 0;
+                  if (name_input.exists) {
+                    $(document).keypress(function(e) {
+                      if(e.which == 13) { //enter key is 13
+                        entercounter = entercounter +1;
+                        if (entercounter == 1){
+                          addHighScore(name_input.domElement.value, finalScore)
+                          // console.log("POST!!!")
+                        }
+
+                        // var player_name = name_input.domElement.value;
+
+
+                      }
+                    });
+
+                  }
+                  // console.log(name_input.domElement.value)
+                  // var player_score = this.score;
+                  // console.log(player_name, player_score);
+
+                  //POST STUFF FOR PLAYER_NAME AND PLAAYER_SCORE GOES HERE
                 this.returnText.anchor.setTo(0.5, 0.5);
                 this.showReturn = false;
               }
@@ -313,9 +369,10 @@ var playState = {
               this.deathSFX.play();
               this.displayEnd(false);
             },
-            playerbyFireReaperHit: function ( player) {
+            playerbyFireReaperHit: function (player) {
               player.kill();
-              // firereaper.kill() //no kill firereaper
+              // firereaper.kill()
+              //took out firereaper from function to keep firereaper alive while player goes boom
               var explosion = this.add.sprite(player.x, player.y, 'explosion5');
               explosion.anchor.setTo(0.5, 0.5);
               explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
@@ -462,23 +519,23 @@ var playState = {
                 this.game.width / 2, this.game.height / 2 - 60, msg,
                 { font: '72px monospace', fill: '#fff' }
               );
+
               this.endText.anchor.setTo(0.5, 0);
 
               this.showReturn = this.time.now + 2000;
-            },
-            restartGame: function ()  {
-              this.enemyPool.destroy()
-              this.reaperPool.destroy()
-              this.firereaperPool.destroy()
-              this.speedCounter = 0;
-              this.spawnCounter = 0;
-              this.reaperCounter = 0;
-              this.firereaperCounter = 0;
-              this.score = 0;
-              game.state.start('menu');
-            },
-            // revive: function (){
-            //   this.player = this.add.sprite(64, 220, 'player');
-            // }
+          },
 
-          };
+          restartGame: function ()  {
+            this.enemyPool.destroy()
+            this.reaperPool.destroy()
+            this.firereaperPool.destroy()
+            this.speedCounter = 0;
+            this.spawnCounter = 0;
+            this.reaperCounter = 0;
+            this.firereaperCounter = 0;
+            obj = null;
+            game.state.start('menu');
+          },
+
+
+      };
