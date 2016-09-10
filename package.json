@@ -3,12 +3,17 @@
   "version": "1.1.0",
   "description": "![supercat!](http://i.imgur.com/wRx0njy.gif) Shoot stuff with space, dodge bombs, kill and avoid the reapers, beware of the fire reapers, shoot for the new high score!",
   "main": "=^.^=",
-  "dependencies": {},
+  "dependencies": {
+  },
   "engines": {
     "node": "6.1.0"
   },
   "devDependencies": {
-    "phaser-input": "^1.2.5"
+    "gulp-deploy-git": "^0.5.3",
+    "gulp-if": "^2.0.1",
+    "gulp-prompt": "^0.2.0",
+    "gulp-util": "^3.0.7",
+    "minimist": "^1.2.0",
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,5 +28,4 @@
     "url": "http://anhtice.com/nyancat"
   },
   "homepage": "https://github.com/AT89/nyancat#readme"
-
 }
