@@ -4,7 +4,6 @@
   "description": "![supercat!](http://i.imgur.com/wRx0njy.gif) Shoot stuff with space, dodge bombs, kill and avoid the reapers, beware of the fire reapers, shoot for the new high score!",
   "main": "=^.^=",
   "dependencies": {
-        "phaser-input": "^1.2.5"
   },
   "engines": {
     "node": "6.1.0"
