@@ -78,7 +78,7 @@ var playState = {
     this.enemyPool.setAll('checkWorldBounds', true);
     this.enemyPool.setAll('reward', 100, false, false, 0, true); //-!-
     this.enemyPool.forEach(function (enemy){
-      enemy.animations.add('bombMovement', [0, 2, 1, 3], 5, true);
+    enemy.animations.add('bombMovement', [0, 2, 1, 3], 5, true);
     });
 
     this.nextEnemyAt = 0;
@@ -99,7 +99,7 @@ var playState = {
     this.reaperPool.setAll('checkWorldBounds', true);
     this.reaperPool.setAll('reward', 500, false, false, 0, true);
     this.reaperPool.forEach(function (reaper){
-      reaper.animations.add('reaperMovement', [0, 1, 2, 3], 10, true);
+    reaper.animations.add('reaperMovement', [0, 1, 2, 3], 10, true);
     });
 
     //firereaperPool!
@@ -113,7 +113,7 @@ var playState = {
     this.firereaperPool.setAll('checkWorldBounds', true);
     this.firereaperPool.setAll('reward', 1000, false, false, 0, true);
     this.firereaperPool.forEach(function (firereaper){
-      firereaper.animations.add('reaperSlicing', [1, 1, 1, 0, 0, 0, 2], 15, true);
+    firereaper.animations.add('reaperSlicing', [1, 1, 1, 0, 0, 0, 2], 15, true);
     });
 
 
@@ -136,7 +136,7 @@ var playState = {
     this.explosionPool.setAll('anchor.x', 0.5);
     this.explosionPool.setAll('anchor.y', 0.5);
     this.explosionPool.forEach(function (explosion) {
-      explosion.animations.add('boom');
+    explosion.animations.add('boom');
     });
 
     this.explosion4Pool = this.add.group();
@@ -146,7 +146,7 @@ var playState = {
     this.explosion4Pool.setAll('anchor.x', 0.5);
     this.explosion4Pool.setAll('anchor.y', 0.5);
     this.explosion4Pool.forEach(function (explosion4) {
-      explosion4.animations.add('boom');
+    explosion4.animations.add('boom');
     });
 
     this.explosion5Pool = this.add.group();
@@ -156,7 +156,7 @@ var playState = {
     this.explosion5Pool.setAll('anchor.x', 0.5);
     this.explosion5Pool.setAll('anchor.y', 0.5);
     this.explosion5Pool.forEach(function (explosion5) {
-      explosion5.animations.add('boom');
+    explosion5.animations.add('boom');
     });
 
     //audio
@@ -170,7 +170,7 @@ var playState = {
     this.score = 0;
     this.scoreText = this.add.text(
       780, 20, '' + this.score,
-      {font: '20px monospace', fill: '#fff', align: 'center' }
+      {font: '20px monospace', fill: '#fff', align: 'left' }
     );
     this.scoreText.anchor.setTo(1, 0.5);
 
@@ -234,7 +234,7 @@ var playState = {
                 this.nextEnemyAt = this.time.now + this.enemyDelay;
                 var enemy = this.enemyPool.getFirstExists(false);
                 // spawn at a random location, right of the screen
-                enemy.reset(700,this.rnd.integerInRange (0, 600));
+                enemy.reset(800,this.rnd.integerInRange (0, 600));
                 // also randomize the speed
                 enemy.body.velocity.x = -this.rnd.integerInRange(60, 300);
                 enemy.play('bombMovement');
