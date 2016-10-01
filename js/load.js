@@ -13,6 +13,10 @@ var loadState = {
       {font: '30px monospace', fill: 'pink', align: 'center'});
 
 
+    //load backgrounds
+    for (i=1; i<=18; i++){
+      this.load.image('background'+i, 'assets/seamless-space/bg'+i+'.jpg');
+    }
 
     //sprites and images
     this.load.image('background', 'assets/props/bgspace.jpg');

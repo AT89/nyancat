@@ -1,4 +1,4 @@
-/////scoreboard posting goes here/////
+//add score function here
 function addHighScore(name, score) {
     var obj = { name: name, player_score: score }
     // console.log(obj)
@@ -20,15 +20,13 @@ function addHighScore(name, score) {
     });
 }
 
-
 var playState = {
   ////////////////////CREATE////////////////////////
   create: function()  {
     //create the background
-    this.background = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
+    var bgrandom = this.rnd.integerInRange(1,18);
+    this.background = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'background'+bgrandom);
     this.background.autoScroll(-80, 0);
-
-
 
     //create nyan-cat
     this.player = this.add.sprite(64, 220, 'player');
@@ -234,7 +232,7 @@ var playState = {
                 this.nextEnemyAt = this.time.now + this.enemyDelay;
                 var enemy = this.enemyPool.getFirstExists(false);
                 // spawn at a random location, right of the screen
-                enemy.reset(700,this.rnd.integerInRange (0, 600));
+                enemy.reset(800,this.rnd.integerInRange (0, 600));
                 // also randomize the speed
                 enemy.body.velocity.x = -this.rnd.integerInRange(60, 300);
                 enemy.play('bombMovement');
