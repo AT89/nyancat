@@ -84,7 +84,7 @@
 - pixlr and Adobe Photoshop for editing spritesheets
 - http://spritedatabase.net/ for getting the sprites
 - NYAN-CAT
-- Soundtrack: Yum yum by Essence (200% speed inspired by Runling Run WC3 UMS  custom map https://www.youtube.com/watch?v=hjIvbZTcSow)
--
+- old Soundtrack: Yum yum by Essence (200% speed inspired by Runling Run WC3 UMS  custom map https://www.youtube.com/watch?v=hjIvbZTcSow)
+- new Soundtrack: Another Winter by Anamanaguchi (from Scott Pilgrim)
 
 ![nyancat!](http://i.imgur.com/64eW42B.png)
