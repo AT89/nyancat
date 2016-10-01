@@ -1,9 +1,5 @@
-//SCORE ENTER
-
 //ENTER THE SCOREBOARD
 var scoreState = {
-
-
 
   create: function() {
     var your_score = game.add.text(game.world.width /2,
