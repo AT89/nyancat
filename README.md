@@ -37,6 +37,11 @@
 
 * Game should be mobile friendly, on mobile I want to tap the screen to shoot and enable the gyroscope of the device for movement. AND have a default horizontal orientation.
 
+##Captains Log
+- Added 18 different backgrounds
+- New music: Another Winter by Anamanaguchi
+- TO Add - music player, donut cat, 2x points, more enemies
+
 #Cool pics in making of:
 ![leaderboard AJAX works!](http://i.imgur.com/hjndGSH.png)
 - 8/16/2016 - Yay the GET AJAX request works with my Rails server. Took me awhile to remember I forgot Rack CORS..
@@ -45,8 +50,6 @@
 - 8/10/2016 - Making the reaper sprites using pixlr.com
 
 
-
-##Captains Log
 - Tuesday 8/23/2016
 * still working on the POST for player scores
 * phaser-input is nice for input form field https://github.com/orange-games/phaser-input
@@ -74,7 +77,7 @@
 ##Made with:
 - Education from WDI General Assembly, instructors Nick, Jesse, Adrian
 - Javascript
-- Runs on node.js with http-server
+- Runs on node.js with http-server for local testing
 - Phaser.io
 - Socket.io for websockets
 - Heroku for hosting
