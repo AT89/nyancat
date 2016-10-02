@@ -38,8 +38,16 @@
 * Game should be mobile friendly, on mobile I want to tap the screen to shoot and enable the gyroscope of the device for movement. AND have a default horizontal orientation.
 
 ##Captains Log
-- Added 18 different backgrounds
+- 10/2/2016
+- Introducing more cats! We have Neon Cat, DonutCat, NeonColorCat
+- Thanks to ALexTheHedgehog15
+![alexthehedgehog!] (http://i.imgur.com/yxUhkTr.png)
+- added powerup sprites but need to program it
+
+- 10/1/2016
+- Added 15 different backgrounds
 - New music: Another Winter by Anamanaguchi
+
 - TO Add - music player, donut cat, 2x points, more enemies
 
 #Cool pics in making of:
@@ -50,9 +58,10 @@
 - 8/10/2016 - Making the reaper sprites using pixlr.com
 
 - Tuesday 8/23/2016
->>>>>>> dev
 * still working on the POST for player scores
-* phaser-input is nice for input form field https://github.com/orange-games/phaser-input
+* phaser-input is nice for input form field
+* https://github.com/orange-games/phaser-input
+
 ##Monday 8/8/2016
 * Looked at source code from basic shoot em up.
 * Created the sprites and placed Nyan-cat (player), added Bogeys (enemies) the Bomb and the mage

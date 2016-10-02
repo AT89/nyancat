@@ -30,12 +30,14 @@ var loadState = {
     this.load.spritesheet('vortex', 'assets/props/vortex.jpg', 800, 600);
 
     //thecats!
-    this.load.spritesheet('player1', 'assets/cat/cat1.png', 61, 28);
-    this.load.spritesheet('player2', 'assets/cat/cat2.png', 39 , 28);
-    this.load.spritesheet('player3', 'assets/cat/cat3.png', 46 , 28);
+    this.load.spritesheet('player1', 'assets/cat/cat1.png', 61, 28); //nyancat
+    this.load.spritesheet('player2', 'assets/cat/cat2.png', 39 , 28); //donutcat
+    this.load.spritesheet('player3', 'assets/cat/cat3.png', 46 , 28); //neonnyancat
+    this.load.spritesheet('player4', 'assets/cat/cat4.png', 39, 28); //neondonutcat
 
     //powerups!
-    this.load.spritesheet('powerup', 'assets/props/powerup.png', 37, 35);
+    this.load.spritesheet('powerupLife', 'assets/props/powerup.png', 36, 35);
+    this.load.spritesheet('powerup2x', 'assets/props/powerup2.png', 62, 18);
 
     this.load.image('beam', 'assets/props/beam.png');
     this.load.image('bullet', 'assets/props/bullet.png');
@@ -63,7 +65,8 @@ var loadState = {
     this.load.audio('pew','assets/sounds/pew.mp3');
     this.load.audio('reaperDeath','assets/sounds/reaperdeath.wav')
     this.load.audio('firereaperDeath','assets/sounds/reaperdeath2.wav')
-
+    this.load.audio('1upSFX','assets/sounds/1up.wav')
+    this.load.audio('2xSFX','assets/sounds/2x.wav')
   },
 
   create: function()  {

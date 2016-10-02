@@ -40,7 +40,7 @@ var playState = {
     this.tailPool.setAll('checkWorldBounds', true);
 
     //create nyan-cat
-    var catrandom = this.rnd.integerInRange(1,3);
+    var catrandom = this.rnd.integerInRange(1,4);
     if (catrandom == 1){
       this.player = this.add.sprite(64, 220, 'player1');
       this.physics.enable(this.player, Phaser.Physics.ARCADE);
@@ -68,14 +68,24 @@ var playState = {
       this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
       this.player.body.setSize(25, 25, 35, 5);
     }
+    else if (catrandom == 4){
+      this.player = this.add.sprite(64, 220, 'player4');
+      this.physics.enable(this.player, Phaser.Physics.ARCADE);
+      this.player.anchor.setTo(0.5, 0.5);
+      this.player.animations.add('wiggle', [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
+      this.player.animations.play('wiggle')
+      this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
+      this.player.body.setSize(25, 20, 35, 5);
+    }
 
     //powerup!
-    // this.powerup = this.add.sprite(90, 220, 'powerup');
+    this.powerup2x = this.add.sprite(90, 220, 'powerup2x');
+        this.powerupLife = this.add.sprite(90, 400, 'powerupLife');
     // this.physics.enable(this.powerup, Phaser.Physics.ARCADE);
     // this.powerup.anchor.setTo(0.5, 0.5);
     // this.powerup.body.setSize(25, 25, 35, 5);
-    // this.powerup.animations.add('powerwiggle', [ 0, 1, 2, 3], 10, true);
-    // this.powerup.animations.play('powerwiggle')
+    this.powerupLife.animations.add('powerwiggle', [0, 1, 2, 3], 10, true);
+    this.powerupLife.animations.play('powerwiggle')
 
     //ABOVE! need to pool this, outofbounds kill and check etc. set this to spawn
     //at some counter for 2x points
@@ -94,7 +104,7 @@ var playState = {
     // Automatically kill the beam sprites when they go out of bounds
     this.beamPool.setAll('outOfBoundsKill', true);
     this.beamPool.setAll('checkWorldBounds', true);
-    this.nextFire = 0;
+    // this.nextFire = 0;
     this.shotDelay = 40; //SHOOTINGRATE! use this for powerup etc
 
 
@@ -115,7 +125,7 @@ var playState = {
     });
 
     this.nextEnemyAt = 0;
-    this.enemyDelay = (200)
+    this.enemyDelay = (200);
     this.reaperCounter = 0; //this is the counter for reaperspawn!
     this.firereaperCounter = 0; //firereaperspawn!
     this.speedCounter = 0; //speed multiplier
@@ -160,7 +170,7 @@ var playState = {
     this.beamPool.setAll('outOfBoundsKill', true);
     this.beamPool.setAll('checkWorldBounds', true);
     this.nextFire = 0;
-    this.shotDelay = 40; //SHOOTINGRATE! use this for powerup etc
+    // this.shotDelay = 40; //SHOOTINGRATE! use this for powerup etc
 
     this.explosionPool = this.add.group();
     this.explosionPool.enableBody = true;
