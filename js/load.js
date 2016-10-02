@@ -37,7 +37,7 @@ var loadState = {
 
     //powerups!
     this.load.spritesheet('powerupLife', 'assets/props/powerup.png', 36, 35);
-    this.load.spritesheet('powerup2x', 'assets/props/powerup2.png', 62, 18);
+    this.load.image('powerup2x', 'assets/props/powerup2.png');
 
     this.load.image('beam', 'assets/props/beam.png');
     this.load.image('bullet', 'assets/props/bullet.png');

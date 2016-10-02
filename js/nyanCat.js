@@ -78,22 +78,41 @@ var playState = {
       this.player.body.setSize(25, 20, 35, 5);
     }
 
-    //powerup!
-    this.powerup2x = this.add.sprite(90, 220, 'powerup2x');
-        this.powerupLife = this.add.sprite(90, 400, 'powerupLife');
-    // this.physics.enable(this.powerup, Phaser.Physics.ARCADE);
-    // this.powerup.anchor.setTo(0.5, 0.5);
-    // this.powerup.body.setSize(25, 25, 35, 5);
-    this.powerupLife.animations.add('powerwiggle', [0, 1, 2, 3], 10, true);
-    this.powerupLife.animations.play('powerwiggle')
-
-    //ABOVE! need to pool this, outofbounds kill and check etc. set this to spawn
-    //at some counter for 2x points
-    //also get text saying 2X PTS (like wow dps)
-    //get a soundbyte to play.. Mario mushroom powerup sound?
-
     //grouping is necessary to adhere to memory leaks and reuse sprites, for time & memory, as well as giving it all properties
     //nyan-cat pew pew
+
+
+    //powerup!
+    //2x
+    this.powerup2xPool = this.add.group();
+    this.powerup2xPool.enableBody = true;
+    this.powerup2xPool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.powerup2xPool.createMultiple(10, 'powerup2x');
+    this.powerup2xPool.setAll('anchor.x', 0.5)
+    this.powerup2xPool.setAll('anchor.y', 0.5)
+    this.powerup2xPool.setAll('outOfBoundsKill', true);
+    this.powerup2xPool.setAll('checkWorldBounds', true);
+    this.powerup2xPool.setAll('reward', 500, false, false, 0, true);
+    this.powerup2xPool.forEach(function (powerup2x){
+      powerup2x.body.setSize(60, 20, 35, 5);
+    });
+
+    //1up
+    this.powerupLifePool = this.add.group();
+    this.powerupLifePool.enableBody = true;
+    this.powerupLifePool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.powerupLifePool.createMultiple(10, 'powerupLife');
+    this.powerupLifePool.setAll('anchor.x', 0.5)
+    this.powerupLifePool.setAll('anchor.y', 0.5)
+    this.powerupLifePool.setAll('outOfBoundsKill', true);
+    this.powerupLifePool.setAll('checkWorldBounds', true);
+    this.powerupLifePool.setAll('reward', 500, false, false, 0, true);
+    this.powerupLifePool.forEach(function (powerupLife){
+      powerupLife.body.setSize(20, 20, 35, 5);
+      powerupLife.animations.add('powerupWiggle', [0, 1, 2, 3], 10, true);
+    });
+
+
     this.beamPool = this.add.group();
     this.beamPool.enableBody = true;
     this.beamPool.physicsBodyType = Phaser.Physics.ARCADE;
@@ -130,6 +149,8 @@ var playState = {
     this.firereaperCounter = 0; //firereaperspawn!
     this.speedCounter = 0; //speed multiplier
     this.spawnCounter = 0; //spawn multiplier
+    this.powerup2xCounter = 0; //2x counter
+    this.powerupLifeCounter = 0; //life counter
 
     //reaperPool!
     this.reaperPool = this.add.group();
@@ -207,6 +228,8 @@ var playState = {
     this.pewSFX = this.add.audio('pew');
     this.reaperDeathSFX = this.add.audio('reaperDeath');
     this.firereaperDeathSFX = this.add.audio('firereaperDeath');
+    this.powerup2xSFX = this.add.audio('1upSFX');
+    this.powerupLife = this.add.audio('2xSFX');
 
 
     //playerscore!
@@ -216,6 +239,13 @@ var playState = {
       {font: '20px monospace', fill: '#fff', align: 'center' }
     );
     this.scoreText.anchor.setTo(1, 0.5);
+
+    this.lifes = 0
+    this.lifesText = this.add.text(
+      780, 40, '' + this.lifes + ' <3s',
+      {font: '20px monospace', fill: '#fff', align: 'center' }
+    );
+    this.lifesText.anchor.setTo(1, 0.5);
 
 
     //instructionsmessage!
@@ -433,6 +463,8 @@ var playState = {
               this.firereaperCounter++
               this.speedCounter++
               this.spawnCounter++
+              this.powerup2xCounter++
+              this.powerupLifeCounter++
 
             },
             reaperHit: function (beam, reaper) {
@@ -442,6 +474,8 @@ var playState = {
               this.addToScore(reaper.reward);
               this.reaperDeathSFX.play();
               this.firereaperCounter++
+              this.powerup2xCounter++
+              this.powerupLifeCounter++
 
             },
             firereaperHit: function (beam, firereaper) {
@@ -451,6 +485,8 @@ var playState = {
               this.addToScore(firereaper.reward);
               this.firereaperDeathSFX.play();
               this.reaperCounter++;
+              this.powerup2xCounter++
+              this.powerupLifeCounter++
 
             },
             enemyHitbyTail: function (tail, enemy) {
@@ -463,6 +499,8 @@ var playState = {
               this.firereaperCounter++
               this.speedCounter++
               this.spawnCounter++
+              this.powerup2xCounter++
+              this.powerupLifeCounter++
 
             },
             reaperHitbyTail: function (tail, reaper) {
@@ -472,6 +510,8 @@ var playState = {
               this.addToScore(reaper.reward);
               this.reaperDeathSFX.play();
               this.firereaperCounter++
+              this.powerup2xCounter++
+              this.powerupLifeCounter++
 
             },
             firereaperHitbyTail: function (tail, firereaper) {
@@ -481,6 +521,8 @@ var playState = {
               this.addToScore(firereaper.reward);
               this.firereaperDeathSFX.play();
               this.reaperCounter++;
+              this.powerup2xCounter++
+              this.powerupLifeCounter++
 
             },
 
@@ -549,6 +591,10 @@ var playState = {
               this.score += score;
               this.scoreText.text = this.score;
             },
+            addTolifes: function (life) {
+              this.life += life;
+              thislifesText.test = this.life;
+            },
             displayEnd: function (win) {
               // you can't win and lose at the same time
               if (this.endText && this.endText.exists) {
@@ -575,6 +621,8 @@ var playState = {
             this.spawnCounter = 0;
             this.reaperCounter = 0;
             this.firereaperCounter = 0;
+            this.powerup2xCounter = 0;
+            this.powerupLifeCounter = 0;
             obj = null;
             game.state.start('menu');
           },
