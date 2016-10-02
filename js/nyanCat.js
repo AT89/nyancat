@@ -40,7 +40,7 @@ var playState = {
     this.tailPool.setAll('checkWorldBounds', true);
 
     //create nyan-cat
-    var catrandom = this.rnd.integerInRange(3,3);
+    var catrandom = this.rnd.integerInRange(1,3);
     if (catrandom == 1){
       this.player = this.add.sprite(64, 220, 'player1');
       this.physics.enable(this.player, Phaser.Physics.ARCADE);
@@ -68,6 +68,19 @@ var playState = {
       this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
       this.player.body.setSize(25, 25, 35, 5);
     }
+
+    //powerup!
+    // this.powerup = this.add.sprite(90, 220, 'powerup');
+    // this.physics.enable(this.powerup, Phaser.Physics.ARCADE);
+    // this.powerup.anchor.setTo(0.5, 0.5);
+    // this.powerup.body.setSize(25, 25, 35, 5);
+    // this.powerup.animations.add('powerwiggle', [ 0, 1, 2, 3], 10, true);
+    // this.powerup.animations.play('powerwiggle')
+
+    //ABOVE! need to pool this, outofbounds kill and check etc. set this to spawn
+    //at some counter for 2x points
+    //also get text saying 2X PTS (like wow dps)
+    //get a soundbyte to play.. Mario mushroom powerup sound?
 
     //grouping is necessary to adhere to memory leaks and reuse sprites, for time & memory, as well as giving it all properties
     //nyan-cat pew pew
@@ -482,7 +495,7 @@ var playState = {
                 return;
               }
               var tail = this.tailPool.getFirstExists(false);
-              tail.reset(this.player.x-10, this.player.y);
+              tail.reset(this.player.x-12, this.player.y);
               //change tail! start point here
               tail.body.velocity.x = -700;
 
