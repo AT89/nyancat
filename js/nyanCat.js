@@ -461,6 +461,7 @@ var playState = {
               }
               var tail = this.tailPool.getFirstExists(false);
               tail.reset(this.player.x-35, this.player.y);
+              //change tail! start point here
               tail.body.velocity.x = -700;
 
               //MEANINGLESS ANIMATION
