@@ -14,7 +14,7 @@ var loadState = {
 
 
     //load backgrounds
-    for (i=1; i<=18; i++){
+    for (i=1; i<=15; i++){
       this.load.image('background'+i, 'assets/seamless-space/bg'+i+'.jpg');
     }
 
@@ -22,6 +22,7 @@ var loadState = {
     this.load.image('background', 'assets/props/bgspace.jpg');
     this.load.spritesheet('vortex', 'assets/props/vortex.jpg', 800, 600);
     this.load.spritesheet('player', 'assets/cat/nyancat.png', 61, 28);
+    this.load.spritesheet('player_donut', 'assets/cat/donutcat.png', 40, 28);
     this.load.image('beam', 'assets/props/beam.png');
     this.load.image('bullet', 'assets/props/bullet.png');
     this.load.spritesheet('nyantail', 'assets/cat/tail.png', 38, 28);
