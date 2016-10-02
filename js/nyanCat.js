@@ -20,6 +20,7 @@ function addHighScore(name, score) {
     });
 }
 
+
 var playState = {
   ////////////////////CREATE////////////////////////
   create: function()  {
