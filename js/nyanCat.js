@@ -29,17 +29,7 @@ var playState = {
     this.background = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'background'+bgrandom);
     this.background.autoScroll(-80, 0);
 
-    //create nyan-cat
-    this.player = this.add.sprite(64, 220, 'player');
-    this.physics.enable(this.player, Phaser.Physics.ARCADE);
-    this.player.anchor.setTo(0.5, 0.5);
-    this.player.animations.add('wiggle', [0, 1, 2, 3, 4], 10, true);
-    this.player.animations.play('wiggle')
-    this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
-    this.player.body.setSize(20, 20, 35, 5);
-
-    //grouping is necessary to adhere to memory leaks and reuse sprites, for time & memory, as well as giving it all properties
-
+    //creating the tail first so the cat can go ontop of the tail
     this.tailPool = this.add.group();
     this.tailPool.enableBody = true;
     this.tailPool.physicsBodyType = Phaser.Physics.ARCADE;
@@ -49,6 +39,29 @@ var playState = {
     this.tailPool.setAll('outOfBoundsKill', true);
     this.tailPool.setAll('checkWorldBounds', true);
 
+    //create nyan-cat
+    var catrandom = this.rnd.integerInRange(1,2);
+    if (catrandom == 1){
+      this.player = this.add.sprite(64, 220, 'player1');
+      this.physics.enable(this.player, Phaser.Physics.ARCADE);
+      this.player.anchor.setTo(0.5, 0.5);
+      this.player.animations.add('wiggle', [0, 1, 2, 3, 4], 10, true);
+      this.player.animations.play('wiggle')
+      this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
+      this.player.body.setSize(20, 20, 35, 5);
+    }
+    else if (catrandom == 2){
+      this.player = this.add.sprite(64, 220, 'player2');
+      this.physics.enable(this.player, Phaser.Physics.ARCADE);
+      this.player.anchor.setTo(0.5, 0.5);
+      this.player.animations.add('wiggle', [ 0, 1, 2, 3], 10, true);
+      this.player.animations.play('wiggle')
+      this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
+      this.player.body.setSize(20, 20, 35, 5);
+      //ABOVE! change this to donut cat hitbox
+    }
+
+    //grouping is necessary to adhere to memory leaks and reuse sprites, for time & memory, as well as giving it all properties
     //nyan-cat pew pew
     this.beamPool = this.add.group();
     this.beamPool.enableBody = true;
@@ -461,12 +474,10 @@ var playState = {
                 return;
               }
               var tail = this.tailPool.getFirstExists(false);
-              tail.reset(this.player.x-35, this.player.y);
+              tail.reset(this.player.x-10, this.player.y);
               //change tail! start point here
               tail.body.velocity.x = -700;
 
-              //MEANINGLESS ANIMATION
-              // tail.animations.add('makerainbowwiggle', [0,1], 30, true);
             },
 
             explode: function (sprite) {
