@@ -17,7 +17,6 @@ var loadState = {
     for (i=1; i<=15; i++){
       this.load.image('background'+i, 'assets/seamless-space/bg'+i+'.jpg');
     }
-
     //sprites and images
     this.load.image('background', 'assets/props/bgspace.jpg');
     this.load.spritesheet('vortex', 'assets/props/vortex.jpg', 800, 600);

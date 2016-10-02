@@ -24,7 +24,7 @@ var playState = {
   ////////////////////CREATE////////////////////////
   create: function()  {
     //create the background
-    var bgrandom = this.rnd.integerInRange(1,18);
+    var bgrandom = this.rnd.integerInRange(1,15);
     this.background = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'background'+bgrandom);
     this.background.autoScroll(-80, 0);
 
