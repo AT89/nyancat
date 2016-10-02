@@ -40,7 +40,7 @@ var playState = {
     this.tailPool.setAll('checkWorldBounds', true);
 
     //create nyan-cat
-    var catrandom = this.rnd.integerInRange(1,2);
+    var catrandom = this.rnd.integerInRange(3,3);
     if (catrandom == 1){
       this.player = this.add.sprite(64, 220, 'player1');
       this.physics.enable(this.player, Phaser.Physics.ARCADE);
@@ -57,8 +57,16 @@ var playState = {
       this.player.animations.add('wiggle', [ 0, 1, 2, 3], 10, true);
       this.player.animations.play('wiggle')
       this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
-      this.player.body.setSize(20, 20, 35, 5);
-      //ABOVE! change this to donut cat hitbox
+      this.player.body.setSize(25, 20, 35, 5);
+    }
+    else if (catrandom == 3){
+      this.player = this.add.sprite(64, 220, 'player3');
+      this.physics.enable(this.player, Phaser.Physics.ARCADE);
+      this.player.anchor.setTo(0.5, 0.5);
+      this.player.animations.add('wiggle', [ 0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14], 10, true);
+      this.player.animations.play('wiggle')
+      this.player.body.collideWorldBounds = true; //make it so player cant go outside edge** for now..
+      this.player.body.setSize(25, 25, 35, 5);
     }
 
     //grouping is necessary to adhere to memory leaks and reuse sprites, for time & memory, as well as giving it all properties

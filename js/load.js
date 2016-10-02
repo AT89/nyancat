@@ -28,9 +28,11 @@ var loadState = {
 
     //sprites and images
     this.load.spritesheet('vortex', 'assets/props/vortex.jpg', 800, 600);
+    
     //thecats!
     this.load.spritesheet('player1', 'assets/cat/cat1.png', 61, 28);
-    this.load.spritesheet('player2', 'assets/cat/cat2.png', 39, 28);
+    this.load.spritesheet('player2', 'assets/cat/cat2.png', 39 , 28);
+    this.load.spritesheet('player3', 'assets/cat/cat3.png', 46 , 28);
 
     this.load.image('beam', 'assets/props/beam.png');
     this.load.image('bullet', 'assets/props/bullet.png');
