@@ -457,26 +457,36 @@ var playState = {
                 explosion.play('boom', 15, false, true);
                 this.deathSFX.play();
                 this.displayEnd(false);
+                console.log("LIFETEST life should be at 0 by bomb"+this.lifes)
               }
               else {
                 enemy.kill();
-                this.minusToLifes(1);
+                // this.minusToLifes(1);
+                this.lifedownSFX.play();
+                this.lifes -= 1;
+                this.lifesText.text = this.lifes;
+
                 console.log("LIFETEST i got hit by bomb "+this.lifes);
               }
             },
             playerbyReaperHit: function (reaper, player) {
               if (this.lifes == 0) {
-                player.kill();
+                player.kill(); //why is this not working
                 var explosion = this.add.sprite(player.x, player.y, 'explosion3');
                 explosion.anchor.setTo(0.5, 0.5);
                 explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
                 explosion.play('boom', 15, false, true);
                 this.deathSFX.play();
                 this.displayEnd(false);
+                console.log("LIFETEST life should be at 0 by R"+this.lifes)
               }
               else {
                 reaper.kill();
-                this.minusToLifes(1);
+                // this.minusToLifes(1);
+                this.lifedownSFX.play();
+                this.lifes -= 1;
+                this.lifesText.text = this.lifes;
+
                 console.log("LIFETEST i got hit by R "+this.lifes);
               }
             },
@@ -489,10 +499,15 @@ var playState = {
                 explosion.play('boom', 15, false, true);
                 this.deathSFX.play();
                 this.displayEnd(false);
+                console.log("LIFETEST life should be at 0 by FR"+this.lifes)
               }
               else {
                 firereaper.kill();
-                this.minusToLifes(1);
+                // this.minusToLifes(1);
+                this.lifedownSFX.play();
+                this.lifes -= 1;
+                this.lifesText.text = this.lifes;
+
                 console.log("LIFETEST i got hit by FR "+this.lifes);
               }
             },
