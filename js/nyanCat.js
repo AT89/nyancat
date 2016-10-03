@@ -457,7 +457,7 @@ var playState = {
                 explosion.play('boom', 15, false, true);
                 this.deathSFX.play();
                 this.displayEnd(false);
-                console.log("LIFETEST life should be at 0 by bomb"+this.lifes)
+                console.log("LIFETEST life should be at 0 by bomb"+this.lifes);
               }
               else {
                 enemy.kill();
@@ -465,7 +465,6 @@ var playState = {
                 this.lifedownSFX.play();
                 this.lifes -= 1;
                 this.lifesText.text = this.lifes;
-
                 console.log("LIFETEST i got hit by bomb "+this.lifes);
               }
             },
@@ -478,7 +477,7 @@ var playState = {
                 explosion.play('boom', 15, false, true);
                 this.deathSFX.play();
                 this.displayEnd(false);
-                console.log("LIFETEST life should be at 0 by R"+this.lifes)
+                console.log("LIFETEST life should be at 0 by R"+this.lifes);
               }
               else {
                 reaper.kill();
@@ -499,7 +498,7 @@ var playState = {
                 explosion.play('boom', 15, false, true);
                 this.deathSFX.play();
                 this.displayEnd(false);
-                console.log("LIFETEST life should be at 0 by FR"+this.lifes)
+                console.log("LIFETEST life should be at 0 by FR"+this.lifes);
               }
               else {
                 firereaper.kill();
