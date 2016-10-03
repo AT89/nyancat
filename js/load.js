@@ -63,10 +63,13 @@ var loadState = {
     //sounds
     this.load.audio('sad','assets/sounds/sad.mp3');
     this.load.audio('pew','assets/sounds/pew.mp3');
-    this.load.audio('reaperDeath','assets/sounds/reaperdeath.wav')
-    this.load.audio('firereaperDeath','assets/sounds/reaperdeath2.wav')
-    this.load.audio('1upSFX','assets/sounds/1up.wav')
-    this.load.audio('2xSFX','assets/sounds/2x.wav')
+    this.load.audio('reaperDeath','assets/sounds/reaperdeath.wav');
+    this.load.audio('firereaperDeath','assets/sounds/reaperdeath2.wav');
+    this.load.audio('poweralert','assets/sounds/powerappears.wav');
+    this.load.audio('1up','assets/sounds/1up.wav');
+    this.load.audio('2x','assets/sounds/2x.wav');
+    this.load.audio('lifedown', 'assets/sounds/lifedown.wav');
+    this.load.audio('hiscorealert', 'assets/sounds/hiscorealert.wav');
   },
 
   create: function()  {
