@@ -275,7 +275,18 @@ var playState = {
             powerupLife, target, this.game.height,this.rnd.integerInRange(100, 200)) - Math.PI / 2;
             powerupLife.play('powerupWiggle');
             powerupLife.tracking = false;
+      }
 
+      if ((this.powerup2xCounter > 50) && (this.powerup2xPool.countDead() > 0)){
+        this.powerup2xCounter= 0;
+        this.powerAlertSFX.play();
+        var powerup2x = this.powerup2xPool.getFirstExists(false);
+        powerup2x.reset(
+          this.rnd.integerInRange(20, this.game.width - 20), 0);
+          var target = this.rnd.integerInRange(20, this.game.width - 20);
+          powerup2x.rotation = this.physics.arcade.moveToXY(
+            powerup2x, target, this.game.height,this.rnd.integerInRange(100, 300)) - Math.PI / 2;
+            powerup2x.tracking = false;
       }
 
       //firereaperspawn!
@@ -336,6 +347,9 @@ var playState = {
               )
               this.physics.arcade.overlap(
                 this.player, this.powerupLifePool, this.playerLifeUp, null, this
+              )
+              this.physics.arcade.overlap(
+                this.player, this.powerup2xPool, this.score2x, null, this
               )
               this.physics.arcade.overlap(
                 this.player, this.enemyPool, this.playerHit, null, this
@@ -404,13 +418,13 @@ var playState = {
                   //LOGIC GOES HERE
                   // console.log(inputField)
                   var finalScore = this.score;
-                  if (finalScore > game.hiFive[0]){
-                    this.hiscorealertSFX.play();
-                    console.log('New high score!');
-                  }
-                  else{
+                  // if (finalScore > game.hiFive[0]){
+                  //   this.hiscorealertSFX.play();
+                  //   console.log('New high score!');
+                  // }
+                  // else{
                   console.log(finalScore)
-                  }
+                  // }
                   var entercounter = 0;
                   if (name_input.exists) {
                     $(document).keypress(function(e) {
@@ -447,6 +461,14 @@ var playState = {
               this.addToScore(powerupLife.reward);
               this.addToLifes(1);
             },
+            score2x: function (player, powerup2x) {
+              powerup2x.kill();
+              this.powerup2xSFX.play();
+              this.doubleScore(); //make double score function
+            },
+
+            //the problem seems to be in the else statement, the game works properly when player
+            // has zero lives and is displays the game over.
             playerHit: function (enemy, player) {
               if (this.lifes == 0) {
                 player.kill();
@@ -460,6 +482,7 @@ var playState = {
                 console.log("LIFETEST life should be at 0 by bomb"+this.lifes);
               }
               else {
+                player.reset(this.player.x, this.player.y);
                 enemy.kill();
                 // this.minusToLifes(1);
                 this.lifedownSFX.play();
@@ -470,7 +493,7 @@ var playState = {
             },
             playerbyReaperHit: function (reaper, player) {
               if (this.lifes == 0) {
-                player.kill(); //why is this not working
+                player.kill();
                 var explosion = this.add.sprite(player.x, player.y, 'explosion3');
                 explosion.anchor.setTo(0.5, 0.5);
                 explosion.animations.add('boom', [0,1,2,3,4,5,6,7,8,9,10,11]);
@@ -480,6 +503,7 @@ var playState = {
                 console.log("LIFETEST life should be at 0 by R"+this.lifes);
               }
               else {
+                player.reset(this.player.x, this.player.y);
                 reaper.kill();
                 // this.minusToLifes(1);
                 this.lifedownSFX.play();
@@ -501,6 +525,7 @@ var playState = {
                 console.log("LIFETEST life should be at 0 by FR"+this.lifes);
               }
               else {
+                player.reset(this.player.x, this.player.y);
                 firereaper.kill();
                 // this.minusToLifes(1);
                 this.lifedownSFX.play();
@@ -642,6 +667,10 @@ var playState = {
               this.score += score;
               this.scoreText.text = this.score;
             },
+            doubleScore: function (score) {
+              this.score = 2 * this.score;
+              this.scoreText.text = this.score;
+            },
             addToLifes: function (life) {
               this.lifes += life;
               this.lifesText.text = this.lifes;
@@ -672,9 +701,11 @@ var playState = {
           },
 
           restartGame: function ()  {
-            this.enemyPool.destroy()
-            this.reaperPool.destroy()
-            this.firereaperPool.destroy()
+            this.enemyPool.destroy();
+            this.reaperPool.destroy();
+            this.firereaperPool.destroy();
+            this.powerupLifePool.destroy();
+            this.powerup2xPool.destroy();
             this.speedCounter = 0;
             this.spawnCounter = 0;
             this.reaperCounter = 0;
