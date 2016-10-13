@@ -529,7 +529,7 @@ var playState = {
               else {
                 player.reset(this.player.x, this.player.y);
                 firereaper.kill();
-                ßthis.explode5(firereaper);
+                this.explode5(firereaper);
                 // this.minusToLifes(1);
                 this.lifedownSFX.play();
                 this.lifes -= 1;
