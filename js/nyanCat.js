@@ -469,7 +469,7 @@ var playState = {
 
             //the problem seems to be in the else statement, the game works properly when player
             // has zero lives and is displays the game over.
-            playerHit: function (enemy, player) {
+            playerHit: function (player, enemy) {
               if (this.lifes == 0) {
                 player.kill();
                 enemy.kill();
@@ -491,7 +491,7 @@ var playState = {
                 console.log("LIFETEST i got hit by bomb "+this.lifes);
               }
             },
-            playerbyReaperHit: function (reaper, player) {
+            playerbyReaperHit: function (player, reaper) {
               if (this.lifes == 0) {
                 player.kill();
                 var explosion = this.add.sprite(player.x, player.y, 'explosion3');
@@ -513,7 +513,7 @@ var playState = {
                 console.log("LIFETEST i got hit by R "+this.lifes);
               }
             },
-            playerbyFireReaperHit: function (firereaper, player) {
+            playerbyFireReaperHit: function (player, firereaper) {
               if (this.lifes == 0) {
                 player.kill();
                 var explosion = this.add.sprite(player.x, player.y, 'explosion5');

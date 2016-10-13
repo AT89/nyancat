@@ -38,6 +38,10 @@
 * Game should be mobile friendly, on mobile I want to tap the screen to shoot and enable the gyroscope of the device for movement. AND have a default horizontal orientation.
 
 ##Captains Log
+- 10/13/2016
+- added powerups!
+* after 50 kills, youll get a 2x poiint multiplier
+* after 10 kills, youll get a life up! (i will change this later to an hp bar)
 - 10/2/2016
 - Introducing more cats! We have Neon Cat, DonutCat, NeonColorCat
 - Thanks to ALexTheHedgehog15
