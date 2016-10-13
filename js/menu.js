@@ -25,13 +25,19 @@ var menuState = {
         error: error
       })
     }
-
-
     function success (data, response){
       game.hiFive = data;
       // console.log(response);
       // console.log(data + " - " + response);
 
+      //ATTEMPT TO DRY THE CODE
+      // for (i=1;i<=5;i++){
+      //   var score = game.add.text(game.world.width /2,
+      //   game.world.height * i+2/10,
+      //   ''+ game.hiFive[i-1].name+' '+ game.hiFive[i-1].player_score+'',
+      // {font: '80px monospace', fill:'#fff'});
+      // score.anchor.setTo(.5,0);
+      //}
 
 
       var score_1 = game.add.text(game.world.width /2,

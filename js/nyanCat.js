@@ -1,4 +1,4 @@
-/////scoreboard posting goes here/////
+//add score function here
 function addHighScore(name, score) {
     var obj = { name: name, player_score: score }
     // console.log(obj)
@@ -20,15 +20,13 @@ function addHighScore(name, score) {
     });
 }
 
-
 var playState = {
   ////////////////////CREATE////////////////////////
   create: function()  {
     //create the background
-    this.background = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
+    var bgrandom = this.rnd.integerInRange(1,18);
+    this.background = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'background'+bgrandom);
     this.background.autoScroll(-80, 0);
-
-
 
     //create nyan-cat
     this.player = this.add.sprite(64, 220, 'player');
@@ -463,6 +461,7 @@ var playState = {
               }
               var tail = this.tailPool.getFirstExists(false);
               tail.reset(this.player.x-35, this.player.y);
+              //change tail! start point here
               tail.body.velocity.x = -700;
 
               //MEANINGLESS ANIMATION

@@ -1,11 +1,12 @@
+<<<<<<< HEAD
 //CURRENTLY NOT USED, BUT I WANT TO ADD ANOTHER SCREEN FOR A ITEMSHOP
 
 //SCORE ENTER
 
+=======
+>>>>>>> 219a2994bf1ceaabf496efa0b5c2bc80d6efbc3e
 //ENTER THE SCOREBOARD
 var scoreState = {
-
-
 
   create: function() {
     var your_score = game.add.text(game.world.width /2,
