@@ -243,7 +243,7 @@ var playState = {
     this.scoreText.anchor.setTo(1, 0.5);
 
     this.lifes = 0;
-    console.log(this.lifes +' hello, im at lifecounter START LIFETEST')
+    // console.log(this.lifes +' hello, im at lifecounter START LIFETEST')
     this.lifesText = this.add.text(
       795, 40, '0 HP',
       {font: '20px monospace', fill: '#fff', align: 'center' }
@@ -479,7 +479,7 @@ var playState = {
                 explosion.play('boom', 15, false, true);
                 this.deathSFX.play();
                 this.displayEnd(false);
-                console.log("LIFETEST life should be at 0 by bomb"+this.lifes);
+                // console.log("LIFETEST life should be at 0 by bomb"+this.lifes);
               }
               else {
                 player.reset(this.player.x, this.player.y);
@@ -489,7 +489,7 @@ var playState = {
                 this.lifedownSFX.play();
                 this.lifes -= 1;
                 this.lifesText.text = this.lifes;
-                console.log("LIFETEST i got hit by bomb "+this.lifes);
+                // console.log("LIFETEST i got hit by bomb "+this.lifes);
               }
             },
             playerbyReaperHit: function (player, reaper) {
@@ -501,7 +501,7 @@ var playState = {
                 explosion.play('boom', 15, false, true);
                 this.deathSFX.play();
                 this.displayEnd(false);
-                console.log("LIFETEST life should be at 0 by R"+this.lifes);
+                // console.log("LIFETEST life should be at 0 by R"+this.lifes);
               }
               else {
                 player.reset(this.player.x, this.player.y);
@@ -512,7 +512,7 @@ var playState = {
                 this.lifes -= 1;
                 this.lifesText.text = this.lifes;
 
-                console.log("LIFETEST i got hit by R "+this.lifes);
+                // console.log("LIFETEST i got hit by R "+this.lifes);
               }
             },
             playerbyFireReaperHit: function (player, firereaper) {
@@ -524,7 +524,7 @@ var playState = {
                 explosion.play('boom', 15, false, true);
                 this.deathSFX.play();
                 this.displayEnd(false);
-                console.log("LIFETEST life should be at 0 by FR"+this.lifes);
+                // console.log("LIFETEST life should be at 0 by FR"+this.lifes);
               }
               else {
                 player.reset(this.player.x, this.player.y);
@@ -535,7 +535,7 @@ var playState = {
                 this.lifes -= 1;
                 this.lifesText.text = this.lifes;
 
-                console.log("LIFETEST i got hit by FR "+this.lifes);
+                // console.log("LIFETEST i got hit by FR "+this.lifes);
               }
             },
             enemyHit: function (beam, enemy) {
@@ -677,13 +677,13 @@ var playState = {
             addToLifes: function (life) {
               this.lifes += life;
               this.lifesText.text = this.lifes;
-              console.log('LIFETEST life added' +this.lifes)
+              // console.log('LIFETEST life added' +this.lifes)
             },
             minusToLifes: function (life) {
                 this.lifedownSFX.play();
                 this.lifes = this.lifes - life;
                 this.lifesText.text = this.lifes;
-                console.log(this.lifes+ 'afterminusfunc LIFETEST')
+                // console.log(this.lifes+ 'afterminusfunc LIFETEST')
             },
             displayEnd: function (win) {
               // you can't win and lose at the same time
