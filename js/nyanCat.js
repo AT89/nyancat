@@ -484,6 +484,7 @@ var playState = {
               else {
                 player.reset(this.player.x, this.player.y);
                 enemy.kill();
+                this.explode(enemy);
                 // this.minusToLifes(1);
                 this.lifedownSFX.play();
                 this.lifes -= 1;
@@ -505,6 +506,7 @@ var playState = {
               else {
                 player.reset(this.player.x, this.player.y);
                 reaper.kill();
+                this.explode4(reaper);
                 // this.minusToLifes(1);
                 this.lifedownSFX.play();
                 this.lifes -= 1;
@@ -527,6 +529,7 @@ var playState = {
               else {
                 player.reset(this.player.x, this.player.y);
                 firereaper.kill();
+                ßthis.explode5(firereaper);
                 // this.minusToLifes(1);
                 this.lifedownSFX.play();
                 this.lifes -= 1;
