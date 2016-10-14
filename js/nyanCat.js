@@ -264,6 +264,8 @@ var playState = {
     ////////////////////UPDATE////////////////////////
     update: function() {
 
+      this.background.autoScroll(-80-(this.speedCounter*.2), this.speedCounter);
+
       if ((this.powerupLifeCounter > 10) && (this.powerupLifePool.countDead() > 0)){
         this.powerupLifeCounter = 0;
         this.powerAlertSFX.play();
